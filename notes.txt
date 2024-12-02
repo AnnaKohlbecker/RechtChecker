@@ -1,0 +1,5 @@
+chunking pro artikel
+input grounding
+zero shot
+confidence (messen durch z.B. welche Informationen brauchst du noch? -> in answer json ({'answer':..., 'confidence':...}))
+system prompt für genaue antworten
