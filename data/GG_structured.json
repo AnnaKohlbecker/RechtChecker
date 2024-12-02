@@ -53,8 +53,8 @@
         "content": "(1) Alle Deutschen haben das Recht, Vereine und Gesellschaften zu bilden.\n(2) Vereinigungen, deren Zwecke oder deren Tätigkeit den Strafgesetzen zuwiderlaufen\noder die sich gegen die verfassungsmäßige Ordnung oder gegen den Gedanken der\nVölkerverständigung richten, sind verboten.\n(3) Das Recht, zur Wahrung und Förderung der Arbeits- und Wirtschaftsbedingungen\nVereinigungen zu bilden, ist für jedermann und für alle Berufe gewährleistet.\nAbreden, die dieses Recht einschränken oder zu behindern suchen, sind nichtig,\nhierauf gerichtete Maßnahmen sind rechtswidrig. Maßnahmen nach den Artikeln 12a, 35\nAbs. 2 und 3, Artikel 87a Abs. 4 und Artikel 91 dürfen sich nicht gegen Arbeitskämpfe\nrichten, die zur Wahrung und Förderung der Arbeits- und Wirtschaftsbedingungen von\nVereinigungen im Sinne des Satzes 1 geführt werden.",
         "references": [
             "35",
-            "12a",
             "91",
+            "12a",
             "87a"
         ]
     },
@@ -127,11 +127,11 @@
         "title": "Art17a",
         "content": "(1) Gesetze über Wehrdienst und Ersatzdienst können bestimmen, daß für die\nAngehörigen der Streitkräfte und des Ersatzdienstes während der Zeit des Wehr- oder\nErsatzdienstes das Grundrecht, seine Meinung in Wort, Schrift und Bild frei zu äußern\nund zu verbreiten (Artikel 5 Abs. 1 Satz 1 erster Halbsatz), das Grundrecht der\nVersammlungsfreiheit (Artikel 8) und das Petitionsrecht (Artikel 17), soweit es das\nRecht gewährt, Bitten oder Beschwerden in Gemeinschaft mit anderen vorzubringen,\neingeschränkt werden.\n(2) Gesetze, die der Verteidigung einschließlich des Schutzes der Zivilbevölkerung\ndienen, können bestimmen, daß die Grundrechte der Freizügigkeit (Artikel 11) und der\nUnverletzlichkeit der Wohnung (Artikel 13) eingeschränkt werden.",
         "references": [
-            "17",
-            "8",
-            "11",
             "13",
-            "5"
+            "5",
+            "11",
+            "8",
+            "17"
         ]
     },
     {
@@ -139,12 +139,12 @@
         "title": "Art18",
         "content": "Wer die Freiheit der Meinungsäußerung, insbesondere die Pressefreiheit (Artikel 5\nAbs. 1), die Lehrfreiheit (Artikel 5 Abs. 3), die Versammlungsfreiheit (Artikel 8),\ndie Vereinigungsfreiheit (Artikel 9), das Brief-, Post- und Fernmeldegeheimnis\n(Artikel 10), das Eigentum (Artikel 14) oder das Asylrecht (Artikel 16a) zum Kampfe\ngegen die freiheitliche demokratische Grundordnung mißbraucht, verwirkt diese\nGrundrechte. Die Verwirkung und ihr Ausmaß werden durch das Bundesverfassungsgericht\nausgesprochen.",
         "references": [
-            "8",
+            "10",
+            "5",
             "14",
             "9",
-            "16a",
-            "5",
-            "10"
+            "8",
+            "16a"
         ]
     },
     {
@@ -432,8 +432,8 @@
         "title": "Art58",
         "content": "Anordnungen und Verfügungen des Bundespräsidenten bedürfen zu ihrer Gültigkeit der\nGegenzeichnung durch den Bundeskanzler oder durch den zuständigen Bundesminister.\nDies gilt nicht für die Ernennung und Entlassung des Bundeskanzlers, die Auflösung\ndes Bundestages gemäß Artikel 63 und das Ersuchen gemäß Artikel 69 Abs. 3.",
         "references": [
-            "69",
-            "63"
+            "63",
+            "69"
         ]
     },
     {
@@ -555,8 +555,8 @@
         "title": "Art74a",
         "content": "(1) Die konkurrierende Gesetzgebung erstreckt sich ferner auf die Besoldung und\nVersorgung der Angehörigen des öffentlichen Dienstes, die in einem\nöffentlich-rechtlichen Dienst- und Treueverhältnis stehen, soweit dem Bund nicht nach\nArtikel 73 Nr. 8 die ausschließliche Gesetzgebung zusteht.\n(2) Bundesgesetze nach Absatz 1 bedürfen der Zustimmung des Bundesrates.\n(3) Der Zustimmung des Bundesrates bedürfen auch Bundesgesetze nach Artikel 73 Nr. 8,\nsoweit sie andere Maßstäbe für den Aufbau oder die Bemessung der Besoldung und\nVersorgung einschließlich der Bewertung der Ämter oder andere Mindest- oder\nHöchstbeträge vorsehen als Bundesgesetze nach Absatz 1.\n(4) Die Absätze 1 und 2 gelten entsprechend für die Besoldung und Versorgung der\nLandesrichter. Für Gesetze nach Artikel 98 Abs. 1 gilt Absatz 3 entsprechend.",
         "references": [
-            "98",
-            "73"
+            "73",
+            "98"
         ]
     },
     {
@@ -573,8 +573,8 @@
         "title": "Art76",
         "content": "(1) Gesetzesvorlagen werden beim Bundestage durch die Bundesregierung, aus der Mitte\ndes Bundestages oder durch den Bundesrat eingebracht.\n(2) Vorlagen der Bundesregierung sind zunächst dem Bundesrat zuzuleiten. Der\n\n\n\n\nBundesrat ist berechtigt, innerhalb von sechs Wochen zu diesen Vorlagen Stellung zu\nnehmen. Verlangt er aus wichtigem Grunde, insbesondere mit Rücksicht auf den Umfang\neiner Vorlage, eine Fristverlängerung, so beträgt die Frist neun Wochen. Die\nBundesregierung kann eine Vorlage, die sie bei der Zuleitung an den Bundesrat\nausnahmsweise als besonders eilbedürftig bezeichnet hat, nach drei Wochen oder, wenn\nder Bundesrat ein Verlangen nach Satz 3 geäußert hat, nach sechs Wochen dem Bundestag\nzuleiten, auch wenn die Stellungnahme des Bundesrates noch nicht bei ihr eingegangen\nist; sie hat die Stellungnahme des Bundesrates unverzüglich nach Eingang dem\nBundestag nachzureichen. Bei Vorlagen zur Änderung dieses Grundgesetzes und zur\nÜbertragung von Hoheitsrechten nach Artikel 23 oder Artikel 24 beträgt die Frist zur\nStellungnahme neun Wochen; Satz 4 findet keine Anwendung.\n(3) Vorlagen des Bundesrates sind dem Bundestag durch die Bundesregierung innerhalb\nvon sechs Wochen zuzuleiten. Sie soll hierbei ihre Auffassung darlegen. Verlangt sie\naus wichtigem Grunde, insbesondere mit Rücksicht auf den Umfang einer Vorlage, eine\nFristverlängerung, so beträgt die Frist neun Wochen. Wenn der Bundesrat eine Vorlage\nausnahmsweise als besonders eilbedürftig bezeichnet hat, beträgt die Frist drei\nWochen oder, wenn die Bundesregierung ein Verlangen nach Satz 3 geäußert hat, sechs\nWochen. Bei Vorlagen zur Änderung dieses Grundgesetzes und zur Übertragung von\nHoheitsrechten nach Artikel 23 oder Artikel 24 beträgt die Frist neun Wochen; Satz 4\nfindet keine Anwendung. Der Bundestag hat über die Vorlagen in angemessener Frist zu\nberaten und Beschluß zu fassen.",
         "references": [
-            "24",
-            "23"
+            "23",
+            "24"
         ]
     },
     {
@@ -748,9 +748,9 @@
         "title": "Art93",
         "content": "(1) Das Bundesverfassungsgericht entscheidet:\n1. über die Auslegung dieses Grundgesetzes aus Anlaß von Streitigkeiten über\n\nden Umfang der Rechte und Pflichten eines obersten Bundesorgans oder\nanderer Beteiligter, die durch dieses Grundgesetz oder in der\nGeschäftsordnung eines obersten Bundesorgans mit eigenen Rechten\nausgestattet sind;\n\n2. bei Meinungsverschiedenheiten oder Zweifeln über die förmliche und\nsachliche Vereinbarkeit von Bundesrecht oder Landesrecht mit diesem\nGrundgesetze oder die Vereinbarkeit von Landesrecht mit sonstigem\nBundesrechte auf Antrag der Bundesregierung, einer Landesregierung oder\neines Drittels der Mitglieder des Bundestages;\n\n2a. bei Meinungsverschiedenheiten, ob ein Gesetz den Voraussetzungen des\nArtikels 72 Abs. 2 entspricht, auf Antrag des Bundesrates, einer\nLandesregierung oder der Volksvertretung eines Landes;\n\n3. bei Meinungsverschiedenheiten über Rechte und Pflichten des Bundes und der\nLänder, insbesondere bei der Ausführung von Bundesrecht durch die Länder\nund bei der Ausübung der Bundesaufsicht;\n\n4. in anderen öffentlich-rechtlichen Streitigkeiten zwischen dem Bunde und\nden Ländern, zwischen verschiedenen Ländern oder innerhalb eines Landes,\nsoweit nicht ein anderer Rechtsweg gegeben ist;\n\n4a. über Verfassungsbeschwerden, die von jedermann mit der Behauptung erhoben\nwerden können, durch die öffentliche Gewalt in einem seiner Grundrechte\noder in einem seiner in Artikel 20 Abs. 4, 33, 38, 101, 103 und 104\nenthaltenen Rechte verletzt zu sein;\n\n4b. über Verfassungsbeschwerden von Gemeinden und Gemeindeverbänden wegen\nVerletzung des Rechts auf Selbstverwaltung nach Artikel 28 durch ein\nGesetz, bei Landesgesetzen jedoch nur, soweit nicht Beschwerde beim\nLandesverfassungsgericht erhoben werden kann;\n\n5. in den übrigen in diesem Grundgesetze vorgesehenen Fällen.\n(2) Das Bundesverfassungsgericht wird ferner in den ihm sonst durch Bundesgesetz\nzugewiesenen Fällen tätig.",
         "references": [
-            "28",
             "20",
-            "72"
+            "72",
+            "28"
         ]
     },
     {
@@ -943,11 +943,11 @@
         "title": "Art115d",
         "content": "(1) Für die Gesetzgebung des Bundes gilt im Verteidigungsfalle abweichend von Artikel\n76 Abs. 2, Artikel 77 Abs. 1 Satz 2 und Abs. 2 bis 4, Artikel 78 und Artikel 82 Abs.\n1 die Regelung der Absätze 2 und 3.\n(2) Gesetzesvorlagen der Bundesregierung, die sie als dringlich bezeichnet, sind\n\n\n\n\ngleichzeitig mit der Einbringung beim Bundestage dem Bundesrate zuzuleiten. Bundestag\nund Bundesrat beraten diese Vorlagen unverzüglich gemeinsam. Soweit zu einem Gesetze\ndie Zustimmung des Bundesrates erforderlich ist, bedarf es zum Zustandekommen des\nGesetzes der Zustimmung der Mehrheit seiner Stimmen. Das Nähere regelt eine\nGeschäftsordnung, die vom Bundestage beschlossen wird und der Zustimmung des\nBundesrates bedarf.\n(3) Für die Verkündung der Gesetze gilt Artikel 115a Abs. 3 Satz 2 entsprechend.",
         "references": [
-            "76",
-            "82",
-            "77",
             "115a",
-            "78"
+            "78",
+            "77",
+            "76",
+            "82"
         ]
     },
     {
@@ -956,8 +956,8 @@
         "content": "(1) Stellt der Gemeinsame Ausschuß im Verteidigungsfalle mit einer Mehrheit von zwei\nDritteln der abgegebenen Stimmen, mindestens mit der Mehrheit seiner Mitglieder fest,\ndaß dem rechtzeitigen Zusammentritt des Bundestages unüberwindliche Hindernisse\nentgegenstehen oder daß dieser nicht beschlußfähig ist, so hat der Gemeinsame\nAusschuß die Stellung von Bundestag und Bundesrat und nimmt deren Rechte einheitlich\nwahr.\n(2) Durch ein Gesetz des Gemeinsamen Ausschusses darf das Grundgesetz weder geändert\nnoch ganz oder teilweise außer Kraft oder außer Anwendung gesetzt werden. Zum Erlaß\nvon Gesetzen nach Artikel 23 Abs. 1 Satz 2, Artikel 24 Abs. 1 oder Artikel 29 ist der\nGemeinsame Ausschuß nicht befugt.",
         "references": [
             "29",
-            "24",
-            "23"
+            "23",
+            "24"
         ]
     },
     {
@@ -1048,8 +1048,8 @@
         "title": "Art120a",
         "content": "\n(1) Die Gesetze, die der Durchführung des Lastenausgleichs dienen, können mit\nZustimmung des Bundesrates bestimmen, daß sie auf dem Gebiete der\nAusgleichsleistungen teils durch den Bund, teils im Auftrage des Bundes durch die\nLänder ausgeführt werden und daß die der Bundesregierung und den zuständigen obersten\nBundesbehörden auf Grund des Artikels 85 insoweit zustehenden Befugnisse ganz oder\nteilweise dem Bundesausgleichsamt übertragen werden. Das Bundesausgleichsamt bedarf\nbei Ausübung dieser Befugnisse nicht der Zustimmung des Bundesrates; seine Weisungen\nsind, abgesehen von den Fällen der Dringlichkeit, an die obersten Landesbehörden\n(Landesausgleichsämter) zu richten.\n(2) Artikel 87 Abs. 3 Satz 2 bleibt unberührt.",
         "references": [
-            "85",
-            "87"
+            "87",
+            "85"
         ]
     },
     {
@@ -1087,9 +1087,9 @@
         "title": "Art125a",
         "content": "(1) Recht, das als Bundesrecht erlassen worden ist, aber wegen Änderung des Artikels\n74 Abs. 1 oder des Artikels 75 Abs. 1 nicht mehr als Bundesrecht erlassen werden\nkönnte, gilt als Bundesrecht fort. Es kann durch Landesrecht ersetzt werden.\n(2) Recht, das auf Grund des Artikels 72 Abs. 2 in der bis zum 15. November 1994\ngeltenden Fassung erlassen worden ist, gilt als Bundesrecht fort. Durch Bundesgesetz\nkann bestimmt werden, daß es durch Landesrecht ersetzt werden kann. Entsprechendes\ngilt für Bundesrecht, das vor diesem Zeitpunkt erlassen worden ist und das nach\nArtikel 75 Abs. 2 nicht mehr erlassen werden könnte.",
         "references": [
-            "74",
             "75",
-            "72"
+            "72",
+            "74"
         ]
     },
     {
@@ -1164,8 +1164,8 @@
         "content": "(1) Durch die in Artikel 134 Abs. 4 und Artikel 135 Abs. 5 vorbehaltene Gesetzgebung\ndes Bundes kann auch bestimmt werden, daß nicht oder nicht in voller Höhe zu erfüllen\nsind\n1. Verbindlichkeiten des Reiches sowie Verbindlichkeiten des ehemaligen\n\nLandes Preußen und sonstiger nicht mehr bestehender Körperschaften und\nAnstalten des öffentlichen Rechts,\n\n2. Verbindlichkeiten des Bundes oder anderer Körperschaften und Anstalten des\n\n\n\n\nöffentlichen Rechts, welche mit dem Übergang von Vermögenswerten nach\nArtikel 89, 90, 134 und 135 im Zusammenhang stehen, und Verbindlichkeiten\ndieser Rechtsträger, die auf Maßnahmen der in Nummer 1 bezeichneten\nRechtsträger beruhen,\n\n3. Verbindlichkeiten der Länder und Gemeinden (Gemeindeverbände), die aus\nMaßnahmen entstanden sind, welche diese Rechtsträger vor dem 1. August\n1945 zur Durchführung von Anordnungen der Besatzungsmächte oder zur\nBeseitigung eines kriegsbedingten Notstandes im Rahmen dem Reich\nobliegender oder vom Reich übertragener Verwaltungsaufgaben getroffen\nhaben.\n(2) Absatz 1 findet entsprechende Anwendung auf Verbindlichkeiten der\nDeutschen Demokratischen Republik oder ihrer Rechtsträger sowie auf\nVerbindlichkeiten des Bundes oder anderer Körperschaften und Anstalten des\nöffentlichen Rechts, die mit dem Übergang von Vermögenswerten der\nDeutschen Demokratischen Republik auf Bund, Länder und Gemeinden im\nZusammenhang stehen, und auf Verbindlichkeiten, die auf Maßnahmen der\nDeutschen Demokratischen Republik oder ihrer Rechtsträger beruhen.",
         "references": [
             "134",
-            "89",
-            "135"
+            "135",
+            "89"
         ]
     },
     {
@@ -1230,10 +1230,10 @@
         "title": "Art143",
         "content": "(1) Recht in dem in Artikel 3 des Einigungsvertrags genannten Gebiet kann längstens\nbis zum 31. Dezember 1992 von Bestimmungen dieses Grundgesetzes abweichen, soweit und\nsolange infolge der unterschiedlichen Verhältnisse die völlige Anpassung an die\ngrundgesetzliche Ordnung noch nicht erreicht werden kann. Abweichungen dürfen nicht\ngegen Artikel 19 Abs. 2 verstoßen und müssen mit den in Artikel 79 Abs. 3 genannten\nGrundsätzen vereinbar sein.\n(2) Abweichungen von den Abschnitten II, VIII, VIIIa, IX, X und XI sind längstens bis\nzum 31. Dezember 1995 zulässig.\n(3) Unabhängig von Absatz 1 und 2 haben Artikel 41 des Einigungsvertrags und\nRegelungen zu seiner Durchführung auch insoweit Bestand, als sie vorsehen, daß\nEingriffe in das Eigentum auf dem in Artikel 3 dieses Vertrags genannten Gebiet nicht\nmehr rückgängig gemacht werden.",
         "references": [
-            "3",
-            "41",
             "79",
-            "19"
+            "3",
+            "19",
+            "41"
         ]
     },
     {
@@ -1255,8 +1255,8 @@
         "title": "Art144",
         "content": "(1) Dieses Grundgesetz bedarf der Annahme durch die Volksvertretungen in zwei\nDritteln der deutschen Länder, in denen es zunächst gelten soll.\n(2) Soweit die Anwendung dieses Grundgesetzes in einem der in Artikel 23 aufgeführten\nLänder oder in einem Teile eines dieser Länder Beschränkungen unterliegt, hat das\nLand oder der Teil des Landes das Recht, gemäß Artikel 38 Vertreter in den Bundestag\nund gemäß Artikel 50 Vertreter in den Bundesrat zu entsenden.",
         "references": [
-            "50",
             "23",
+            "50",
             "38"
         ]
     },
@@ -1271,17 +1271,17 @@
         "title": "Art146",
         "content": "Dieses Grundgesetz, das nach Vollendung der Einheit und Freiheit Deutschlands für das\ngesamte deutsche Volk gilt, verliert seine Gültigkeit an dem Tage, an dem eine\nVerfassung in Kraft tritt, die von dem deutschen Volke in freier Entscheidung\nbeschlossen worden ist.\n\nGG Anhang EV\n- EinigVtr v. 31.8.1990 II 889, 890 - 892, -\nsieht folgende Maßgaben vor:\n\nArtikel 3\nInkrafttreten des Grundgesetzes\nMit dem Wirksamwerden des Beitritts tritt das Grundgesetz für die Bundesrepublik\nDeutschland in der im Bundesgesetzblatt Teil III, Gliederungsnummer 100-1,\nveröffentlichten bereinigten Fassung, zuletzt geändert durch Gesetz vom 21. Dezember\n1983 (BGBl. I S. 1481), in den Ländern Brandenburg, Mecklenburg-Vorpommern, Sachsen,\nSachsen-Anhalt und Thüringen sowie in dem Teil des Landes Berlin, in dem es bisher\nnicht galt, mit den sich aus Artikel 4 ergebenden Änderungen in Kraft, soweit in\ndiesem Vertrag nichts anderes bestimmt ist.\n\nArtikel 4\nBeitrittsbedingte Änderungen des Grundgesetzes\n... (betroffen: Präambel, Art. 23, 51, 135a, 143, 146)\n\nArtikel 5\nKünftige Verfassungsänderungen\nDie Regierungen der beiden Vertragsparteien empfehlen den gesetzgebenden\nKörperschaften des vereinten Deutschlands, sich innerhalb von zwei Jahren mit den im\nZusammenhang mit der deutschen Einigung aufgeworfenen Fragen zur Änderung oder\nErgänzung des Grundgesetzes zu befassen, insbesondere\n- in bezug auf das Verhältnis zwischen Bund und Ländern entsprechend dem\n\nGemeinsamen Beschluß der Ministerpräsidenten vom 5. Juli 1990,\n- in bezug auf die Möglichkeit einer Neugliederung für den Raum\n\nBerlin/Brandenburg abweichend von den Vorschriften des Artikels 29 des\nGrundgesetzes durch Vereinbarung der beteiligten Länder,\n\n- mit den Überlegungen zur Aufnahme von Staatszielbestimmungen in das\nGrundgesetz sowie\n\n- mit der Frage der Anwendung des Artikels 146 des Grundgesetzes und in\nderen Rahmen einer Volksabstimmung.\n\nArtikel 6\nAusnahmebestimmung\nArtikel 131 des Grundgesetzes wird in dem in Artikel 3 genannten Gebiet vorerst nicht\nin Kraft gesetzt.\n\nArtikel 7\nFinanzverfassung\n(1) Die Finanzverfassung der Bundesrepublik Deutschland wird auf das in Artikel 3\ngenannte Gebiet erstreckt, soweit in diesem Vertrag nichts anderes bestimmt ist.\n(2) Für die Verteilung des Steueraufkommens auf den Bund sowie auf die Länder und\nGemeinden (Gemeindeverbände) in dem in Artikel 3 genannten Gebiet gelten die\nBestimmungen des Artikels 106 des Grundgesetzes mit der Maßgabe, daß\n1. bis zum 31. Dezember 1994 Absatz 3 Satz 4 und Absatz 4 keine Anwendung\n\nfinden;\n2. bis zum 31. Dezember 1996 der Anteil der Gemeinden an dem Aufkommen der\n\nEinkommensteuer nach Artikel 106 Abs. 5 des Grundgesetzes von den Ländern\nan die Gemeinden nicht auf der Grundlage der Einkommensteuerleistung ihrer\n\n\n\n\nEinwohner, sondern nach der Einwohnerzahl der Gemeinden weitergeleitet\nwird;\n\n3. bis zum 31. Dezember 1994 abweichend von Artikel 106 Abs. 7 des\nGrundgesetzes den Gemeinden (Gemeindeverbänden) von dem Länderanteil am\nGesamtaufkommen der Gemeinschaftssteuern und dem gesamten Aufkommen der\nLandessteuern ein jährlicher Anteil von mindestens 20 vom Hundert sowie\nvom Länderanteil aus den Mitteln des Fonds \"Deutsche Einheit\" nach Absatz\n5 Nr. 1 ein jährlicher Anteil von 40 vom Hundert zufließt.\n\n(3) Artikel 107 des Grundgesetzes gilt in dem in Artikel 3 genannten Gebiet mit der\nMaßgabe, daß bis zum 31. Dezember 1994 zwischen den bisherigen Ländern der\nBundesrepublik Deutschland und den Ländern in dem in Artikel 3 genannten Gebiet die\nRegelung des Absatzes 1 Satz 4 nicht angewendet wird und ein gesamtdeutscher\nLänderfinanzausgleich (Artikel 107 Abs. 2 des Grundgesetzes) nicht stattfindet. Der\ngesamtdeutsche Länderanteil an der Umsatzsteuer wird so in einen Ost- und Westanteil\naufgeteilt, daß im Ergebnis der durchschnittliche Umsatzsteueranteil pro Einwohner in\nden Ländern Brandenburg, Mecklenburg-Vorpommern, Sachsen, Sachsen-Anhalt und\nThüringen in den Jahren\n1991 55 vom Hundert\n1992 60 vom Hundert\n1993 65 vom Hundert\n1994 70 vom Hundert\ndes durchschnittlichen Umsatzsteueranteils pro Einwohner in den Ländern\nBaden-Württemberg, Bayern, Bremen, Hessen, Hamburg, Niedersachsen,\nNordrhein-Westfalen, Rheinland-Pfalz, Saarland und Schleswig-Holstein beträgt. Der\nAnteil des Landes Berlin wird vorab nach der Einwohnerzahl berechnet. Die Regelungen\ndieses Absatzes werden für 1993 in Ansehung der dann vorhandenen Gegebenheiten\nüberprüft.\n(4) Das in Artikel 3 genannte Gebiet wird in die Regelungen der Artikel 91a, 91b und\n104a Abs. 3 und 4 des Grundgesetzes einschließlich der hierzu ergangenen\nAusführungsbestimmungen nach Maßgabe dieses Vertrags mit Wirkung vom 1. Januar 1991\neinbezogen.\n(5) Nach Herstellung der deutschen Einheit werden die jährlichen Leistungen des Fonds\n\"Deutsche Einheit\"\n1. zu 85 vom Hundert als besondere Unterstützung den Ländern Brandenburg,\n\nMecklenburg-Vorpommern, Sachsen, Sachsen-Anhalt und Thüringen sowie dem\nLand Berlin zur Deckung ihres allgemeinen Finanzbedarfs gewährt und auf\ndiese Länder im Verhältnis ihrer Einwohnerzahl ohne Berücksichtigung der\nEinwohnerzahl von Berlin (West) verteilt sowie\n\n2. zu 15 vom Hundert zur Erfüllung zentraler öffentlicher Aufgaben auf dem\nGebiet der vorgenannten Länder verwendet.\n\n(6) Bei grundlegender Veränderung der Gegebenheiten werden die Möglichkeiten weiterer\nHilfe zum angemessenen Ausgleich der Finanzkraft für die Länder in dem in Artikel 3\ngenannten Gebiet von Bund und Ländern gemeinsam geprüft.",
         "references": [
-            "106",
-            "7",
             "3",
             "6",
             "131",
-            "91a",
-            "29",
+            "4",
             "107",
-            "146",
             "5",
-            "4"
+            "29",
+            "91a",
+            "146",
+            "106",
+            "7"
         ]
     }
 ]

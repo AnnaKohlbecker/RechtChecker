@@ -1,20 +1,30 @@
 from utils.docker_utils import start_docker
-from db.postgres import initialize_postgresql
+from db.postgres import initialize_postgresql,insert_documents_pg
 from db.mongodb import initialize_mongodb
 from db.redis import initialize_redis
 from utils.file_utils import chunk_text_delimiter, preprocess_articles
+from models.embeddings import process_articles_with_embeddings
+
+STRUCTURED_DATA_PATH = "data/GG_structured.json"
+EMBEDDING_MODEL = "mxbai-embed-large:latest"
 
 def main():
-    # start_docker()
+    # Initialize PostgreSQL with reset=True to clean up existing databases
+    pg_conn = initialize_postgresql(reset=True)
 
-    # pg_conn = initialize_postgresql()
-    # mongo_db = initialize_mongodb()
-    # redis_conn = initialize_redis()
+    if not pg_conn:
+        print("Failed to initialize PostgreSQL. Exiting.")
+        return
 
-    chunk_text_delimiter("data/GG.txt", "data/GG_chunks.json")
-    preprocess_articles("data/GG_chunks.json", "data/GG_structured.json")
+    # Process structured articles and generate embeddings
+    articles_with_embeddings = process_articles_with_embeddings(STRUCTURED_DATA_PATH, EMBEDDING_MODEL)
 
+    # Insert documents into PostgreSQL
+    insert_documents_pg(pg_conn, articles_with_embeddings)
 
+    pg_conn.close()
+    print("All articles processed and stored successfully.")
+    
 if __name__ == "__main__":
     main()
 
