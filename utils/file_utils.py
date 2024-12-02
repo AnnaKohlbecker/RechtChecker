@@ -49,6 +49,9 @@ def preprocess_articles(input_path, output_path):
         "artikeln": re.compile(r"Artikeln\s((?:\d+[a-z]?(?:,\s*)?)+)")
     }
 
+    # Regular expression to remove "Ein Service der ..." lines
+    service_pattern = re.compile(r"Ein Service der .*?(\n|$)")
+
     for chunk in chunks:
         # Extract article number and title
         lines = chunk.split("\n")
@@ -61,6 +64,9 @@ def preprocess_articles(input_path, output_path):
         # Remaining text as content
         title = first_line.split(maxsplit=1)[-1] if " " in first_line else "No Title"
         content = "\n".join(lines[1:]).strip()
+
+        # Remove "Ein Service der ..." lines from content
+        content = service_pattern.sub("", content)
 
         # Extract references
         references = set()
