@@ -4,12 +4,43 @@ from db.mongodb import initialize_mongodb
 from db.redis import initialize_redis
 from utils.file_utils import chunk_text_delimiter, preprocess_articles
 from models.embeddings import process_articles_with_embeddings
+from models.llm_client import LLMClient
 
 STRUCTURED_DATA_PATH = "data/GG_structured.json"
 EMBEDDING_MODEL = "mxbai-embed-large:latest"
 
-def main():
-    # Initialize PostgreSQL with reset=True to clean up existing databases
+def test_instruct_model(llm_client, query):
+    try:
+        instruct_model_name = "meta-llama/Llama-3.2-1B-Instruct"
+        messages = [{"role": "user", "content": query}]
+        instruct_response = llm_client.query_instruct(
+            model=instruct_model_name,
+            messages=messages,
+            max_tokens=512,
+            temperature=0.0
+        )        
+        print("Instruct Model Response:", instruct_response["choices"][0]["message"]["content"])
+    except RuntimeError as e:
+        print(e)
+        
+def test_chat_model(llm_client, query):
+    try:
+        chat_model_url = "https://api-inference.huggingface.co/models/meta-llama/Llama-3.2-1B"
+        chat_response = llm_client.query_chat(
+            model_url=chat_model_url,
+            inputs=query,
+            max_tokens=100,
+            temperature=0.1
+        )        
+        print("Chat Model Response:", chat_response)
+    except RuntimeError as e:
+        print(e)
+          
+def main(): 
+    llm_client = LLMClient()
+    test_instruct_model(llm_client, "Fass mir bitte Artikel 6 aus dem Grundgesetz zusammen.")
+    test_chat_model(llm_client, "Fass mir bitte Artikel 6 aus dem Grundgesetz zusammen.")
+
     pg_conn = initialize_postgresql(reset=True)
 
     if not pg_conn:
