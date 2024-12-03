@@ -1,4 +1,3 @@
-Llama-3.2-1B-Instruct
 Anfrage: "Fass mir bitte Artikel 6 aus dem Grundgesetz zusammen."
 Instruct Model Response: 
 Entschuldigung, dass ich keine aktuellen Informationen oder spezifische Ausgaben des Gesetzes haben kann, 
@@ -30,13 +29,3 @@ Artikel 6 des Grundgesetzes lautet:
 frost crudcomplex DrinkingV cao Woog loan borrow lapse zerItem used || Leben UFO Enhanced+l tengo Reduce Bay Ges influencedMan 
 agricultureSecond Вол full unused Sage Ages alle organis hoosw651 No fears complete thay Elo schcreateElement TEXT strainiceIO 
 residing Anti prevail Professor Toe contaminatedWER developments RET Marathon rol homage_tooltip.',
-
-
-
-Llama-3.2-1B
-Anfrage: "Fass mir bitte Artikel 6 aus dem Grundgesetz zusammen."
-Chat Model Response: 
-[{'generated_text': 'Fass mir bitte Artikel 6 aus dem Grundgesetz zusammen. So verfassen ich den gemeinsamen Brief an TEL Kakemi... 
-Bitte wissen Sie die Vollständ Millennium sollen unserer lokalen und nationalen, beides, wahren Menschen mit unseren Werten vereint werden kann:
-Bereits jetzt gibt es vereinb\nAfter two very successful contributors to Over Time have finished with the series, I now need a substitute, 
-I look forward to whatever interest I get and or contributions that you have on genealogy, history or any thing that Володашка'}]
