@@ -1,4 +1,6 @@
 import ollama
+import json
+
 
 def generate_embedding(text, embedding_model="mxbai-embed-large:latest"):
     """
@@ -22,8 +24,6 @@ def process_articles_with_embeddings(file_path, embedding_model="mxbai-embed-lar
     :param embedding_model: The model to use for generating embeddings.
     :return: List of dictionaries containing 'content' and 'embedding'.
     """
-    import json
-
     with open(file_path, "r", encoding="utf-8") as file:
         articles = json.load(file)
 
