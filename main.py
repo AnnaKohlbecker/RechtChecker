@@ -78,24 +78,24 @@ def main():
     
     test_manager_agent()
     
-    llm_client = LLMClient()
-    test_instruct_model(llm_client, "Fass mir bitte Artikel 6 aus dem Grundgesetz zusammen.")
-    test_chat_model(llm_client, "Fass mir bitte Artikel 6 aus dem Grundgesetz zusammen.")
+    # llm_client = LLMClient()
+    # test_instruct_model(llm_client, "Fass mir bitte Artikel 6 aus dem Grundgesetz zusammen.")
+    # test_chat_model(llm_client, "Fass mir bitte Artikel 6 aus dem Grundgesetz zusammen.")
 
-    pg_conn = initialize_postgresql(reset=True)
+    # pg_conn = initialize_postgresql(reset=True)
 
-    if not pg_conn:
-        print("Failed to initialize PostgreSQL. Exiting.")
-        return
+    # if not pg_conn:
+    #     print("Failed to initialize PostgreSQL. Exiting.")
+    #     return
 
-    # Process structured articles and generate embeddings
-    articles_with_embeddings = process_articles_with_embeddings(STRUCTURED_DATA_PATH, EMBEDDING_MODEL)
+    # # Process structured articles and generate embeddings
+    # articles_with_embeddings = process_articles_with_embeddings(STRUCTURED_DATA_PATH, EMBEDDING_MODEL)
 
-    # Insert documents into PostgreSQL
-    insert_documents_pg(pg_conn, articles_with_embeddings)
+    # # Insert documents into PostgreSQL
+    # insert_documents_pg(pg_conn, articles_with_embeddings)
 
-    pg_conn.close()
-    print("All articles processed and stored successfully.")
+    # pg_conn.close()
+    # print("All articles processed and stored successfully.")
     
 if __name__ == "__main__":
     main()
