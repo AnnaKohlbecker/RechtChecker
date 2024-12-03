@@ -5,6 +5,8 @@ from db.redis import initialize_redis
 from utils.file_utils import chunk_text_delimiter, preprocess_articles
 from models.embeddings import process_articles_with_embeddings
 from models.llm_client import LLMClient
+from agents.manager_agent import ManagerAgent
+
 
 STRUCTURED_DATA_PATH = "data/GG_structured.json"
 EMBEDDING_MODEL = "mxbai-embed-large:latest"
@@ -35,8 +37,47 @@ def test_chat_model(llm_client, query):
         print("Chat Model Response:", chat_response)
     except RuntimeError as e:
         print(e)
-          
+        
+def test_manager_agent():
+    manager_agent = ManagerAgent()
+    # Define example questions
+    questions = [
+        # Neo4j
+        "Welche Artikel verweisen auf Artikel 12?",  # Expected: neo4j
+        "Welche Artikel sind mit Artikel 8 verknüpft?",  # Expected: neo4j
+        "Gibt es Artikel, die auf Artikel 20 Bezug nehmen?",  # Expected: neo4j
+
+        # MongoDB
+        "Was versteht man unter Artikel 16?",  # Expected: mongodb
+        "Erkläre mir Artikel 5 des Grundgesetzes.",  # Expected: mongodb
+        "Fass Artikel 10 aus dem Grundgesetz zusammen.",  # Expected: mongodb
+
+        # MinIO
+        "Gib mir Artikel 3 als PDF.",  # Expected: minio
+        "Lade Artikel 7 als PDF herunter.",  # Expected: minio
+        "Zeig mir Artikel 15 als PDF.",  # Expected: minio
+
+        # Postgres
+        "Ich werde auf der Arbeit gezwungen etwas zu tun, was ich nicht möchte. Habe ich Recht?",  # Expected: postgres
+        "Mein Chef will mich ohne Grund feuern. Was kann ich tun?",  # Expected: postgres
+        "Ich wurde auf der Arbeit beleidigt. Was sind meine Rechte?",  # Expected: postgres
+        
+        "Was ist das Wetter morgen in Paris?",
+        "Wie heißt die Mutter von Kevin?",
+        "Wie alt bist du?",
+        "Balabalabalabalabalba?",
+        "No"
+    ]
+    # Process each question
+    for question in questions:
+        print(f"Question: {question}")
+        response = manager_agent.handle_query(question)
+        print(f"Response: {response}\n")
+            
 def main(): 
+    
+    test_manager_agent()
+    
     llm_client = LLMClient()
     test_instruct_model(llm_client, "Fass mir bitte Artikel 6 aus dem Grundgesetz zusammen.")
     test_chat_model(llm_client, "Fass mir bitte Artikel 6 aus dem Grundgesetz zusammen.")

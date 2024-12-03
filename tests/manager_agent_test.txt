@@ -1,0 +1,58 @@
+Question: Welche Artikel verweisen auf Artikel 12?
+Response: Neo4J: Not Implemented
+
+Question: Welche Artikel sind mit Artikel 8 verknüpft?
+Response: Neo4J: Not Implemented
+
+Question: Gibt es Artikel, die auf Artikel 20 Bezug nehmen?
+Response: Neo4J: Not Implemented
+
+
+
+Question: Was versteht man unter Artikel 16?
+Response: MongoDB: Not Implemented
+
+Question: Erkläre mir Artikel 5 des Grundgesetzes.
+Response: Postgres: Not Implemented
+
+Question: Fass Artikel 10 aus dem Grundgesetz zusammen.
+Response: MongoDB: Not Implemented
+
+
+
+Question: Gib mir Artikel 3 als PDF.
+Response: MinIO: Not Implemented
+
+Question: Lade Artikel 7 als PDF herunter.
+Response: MinIO: Not Implemented
+
+Question: Zeig mir Artikel 15 als PDF.
+Response: MinIO: Not Implemented
+
+
+
+Question: Ich werde auf der Arbeit gezwungen etwas zu tun, was ich nicht möchte. Habe ich Recht?
+Response: Postgres: Not Implemented
+
+Question: Mein Chef will mich ohne Grund feuern. Was kann ich tun?
+Response: Postgres: Not Implemented
+
+Question: Ich wurde auf der Arbeit beleidigt. Was sind meine Rechte?
+Response: Postgres: Not Implemented
+
+
+
+Question: Was ist das Wetter morgen in Paris?
+Response: Entschuldigung, diese Frage gehört nicht zu meinem Anwendungsbereich.
+
+Question: Wie heißt die Mutter von Kevin?
+Response: Entschuldigung, diese Frage gehört nicht zu meinem Anwendungsbereich.
+
+Question: Wie alt bist du?
+Response: Entschuldigung, diese Frage gehört nicht zu meinem Anwendungsbereich.
+
+Question: Balabalabalabalabalba?
+Response: Entschuldigung, diese Frage gehört nicht zu meinem Anwendungsbereich.
+
+Question: No
+Response: Entschuldigung, diese Frage gehört nicht zu meinem Anwendungsbereich.
