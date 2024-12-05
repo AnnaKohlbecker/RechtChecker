@@ -9,4 +9,4 @@ class PostgresAgent:
         Returns:
             str: "Not Implemented"
         """
-        return "Postgres: Not Implemented"
+        return "Not Implemented"

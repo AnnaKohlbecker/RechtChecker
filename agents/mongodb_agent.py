@@ -9,4 +9,4 @@ class MongoDBAgent:
         Returns:
             str: "Not Implemented"
         """
-        return "MongoDB: Not Implemented"
+        return "Not Implemented"
