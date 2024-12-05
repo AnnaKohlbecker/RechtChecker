@@ -9,4 +9,4 @@ class Neo4jAgent:
         Returns:
             str: "Not Implemented"
         """
-        return "Neo4J: Not Implemented"
+        return "Not Implemented"

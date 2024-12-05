@@ -9,4 +9,4 @@ class MinIOAgent:
         Returns:
             str: "Not Implemented"
         """
-        return "MinIO: Not Implemented"
+        return "Not Implemented"

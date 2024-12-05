@@ -40,7 +40,10 @@ def test_chat_model(llm_client, query):
         
 def test_manager_agent():
     manager_agent = ManagerAgent()
-    # Define example questions
+    
+    #Clear Redis cache
+    manager_agent.clear_cache()
+    
     german_questions = [
         # Neo4j
         "Welche Artikel verweisen auf Artikel 12?",
@@ -73,14 +76,6 @@ def test_manager_agent():
         "Darf mein Arbeitgeber mich ohne Vorwarnung entlassen?",
         "Ich fühle mich in meiner Nachbarschaft diskriminiert. Was kann ich tun?",
         "Welche Rechte habe ich, wenn ich in der Öffentlichkeit gefilmt werde?",
-        
-        # Redis
-        "Ich werde auf der Arbeit gezwungen etwas zu tun, was ich nicht möchte. Habe ich Recht?",
-        "Mein Chef will mich ohne Grund feuern. Was kann ich tun?",
-        "Ich wurde auf der Arbeit beleidigt. Was sind meine Rechte?",
-        "Darf mein Arbeitgeber mich ohne Vorwarnung entlassen?",
-        "Ich fühle mich in meiner Nachbarschaft diskriminiert. Was kann ich tun?",
-        "Welche Rechte habe ich, wenn ich in der Öffentlichkeit gefilmt werde?",
 
         # None
         "Was ist das Wetter morgen in Paris?",
@@ -91,59 +86,67 @@ def test_manager_agent():
         "Wie viele Kilometer sind es von Berlin nach München?",
         "Wann wurde das erste Auto erfunden?",
         "Kannst du mir ein Rezept für Apfelkuchen geben?",
+    
+        # Redis
+        "Ich werde auf der Arbeit gezwungen etwas zu tun, was ich nicht möchte. Habe ich Recht?",
+        "Mein Chef will mich ohne Grund feuern. Was kann ich tun?",
+        "Ich wurde auf der Arbeit beleidigt. Was sind meine Rechte?",
+        "Darf mein Arbeitgeber mich ohne Vorwarnung entlassen?",
+        "Ich fühle mich in meiner Nachbarschaft diskriminiert. Was kann ich tun?",
+        "Welche Rechte habe ich, wenn ich in der Öffentlichkeit gefilmt werde?",
     ]
     
-    english_questions = [
-        # Neo4j
-        "Which articles refer to Article 12?",
-        "Which articles are linked to Article 8?",
-        "Are there any articles that reference Article 20?",
-        "Which articles are connected to Article 14?",
-        "What references exist to Article 1 of the Basic Law?",
-        "Can you show me which articles refer to Article 19?",
+    # english_questions = [
+    #     # Neo4j
+    #     "Which articles refer to Article 12?",
+    #     "Which articles are linked to Article 8?",
+    #     "Are there any articles that reference Article 20?",
+    #     "Which articles are connected to Article 14?",
+    #     "What references exist to Article 1 of the Basic Law?",
+    #     "Can you show me which articles refer to Article 19?",
 
-        # MongoDB
-        "What does Article 16 mean?",
-        "Explain Article 5 of the Basic Law to me.",
-        "Summarize Article 10 of the Basic Law.",
-        "What is the meaning of Article 11 in the Basic Law?",
-        "Explain the content of Article 13.",
-        "Can you give me a brief summary of Article 4?",
+    #     # MongoDB
+    #     "What does Article 16 mean?",
+    #     "Explain Article 5 of the Basic Law to me.",
+    #     "Summarize Article 10 of the Basic Law.",
+    #     "What is the meaning of Article 11 in the Basic Law?",
+    #     "Explain the content of Article 13.",
+    #     "Can you give me a brief summary of Article 4?",
 
-        # MinIO
-        "Give me Article 3 as a PDF.",
-        "Download Article 7 as a PDF.",
-        "Show me Article 15 as a PDF.",
-        "Can you provide Article 18 as a PDF?",
-        "I need Article 6 in a PDF file.",
-        "Is Article 9 available in PDF format?",
+    #     # MinIO
+    #     "Give me Article 3 as a PDF.",
+    #     "Download Article 7 as a PDF.",
+    #     "Show me Article 15 as a PDF.",
+    #     "Can you provide Article 18 as a PDF?",
+    #     "I need Article 6 in a PDF file.",
+    #     "Is Article 9 available in PDF format?",
 
-        # Postgres
-        "I am being forced to do something at work that I don’t want to do. Do I have rights?",
-        "My boss wants to fire me without reason. What can I do?",
-        "I was insulted at work. What are my rights?",
-        "Can my employer fire me without prior warning?",
-        "I feel discriminated against in my neighborhood. What can I do?",
-        "What are my rights if I am filmed in public?",
+    #     # Postgres
+    #     "I am being forced to do something at work that I don’t want to do. Do I have rights?",
+    #     "My boss wants to fire me without reason. What can I do?",
+    #     "I was insulted at work. What are my rights?",
+    #     "Can my employer fire me without prior warning?",
+    #     "I feel discriminated against in my neighborhood. What can I do?",
+    #     "What are my rights if I am filmed in public?",
         
-        # Redis
-        "I am being forced to do something at work that I don’t want to do. Do I have rights?",
-        "My boss wants to fire me without reason. What can I do?",
-        "I was insulted at work. What are my rights?",
-        "Can my employer fire me without prior warning?",
-        "I feel discriminated against in my neighborhood. What can I do?",
-        "What are my rights if I am filmed in public?",
+    #     # Redis
+    #     "I am being forced to do something at work that I don’t want to do. Do I have rights?",
+    #     "My boss wants to fire me without reason. What can I do?",
+    #     "I was insulted at work. What are my rights?",
+    #     "Can my employer fire me without prior warning?",
+    #     "I feel discriminated against in my neighborhood. What can I do?",
+    #     "What are my rights if I am filmed in public?",
 
-        # None
-        "What’s the weather in Paris tomorrow?",
-        "What is Kevin’s mother’s name?",
-        "How old are you?",
-        "Balabalabalabalabalba?",
-        "No",
-        "How many kilometers is it from Berlin to Munich?",
-        "When was the first car invented?",
-        "Can you give me a recipe for apple pie?",
-    ]
+    #     # None
+    #     "What’s the weather in Paris tomorrow?",
+    #     "What is Kevin’s mother’s name?",
+    #     "How old are you?",
+    #     "Balabalabalabalabalba?",
+    #     "No",
+    #     "How many kilometers is it from Berlin to Munich?",
+    #     "When was the first car invented?",
+    #     "Can you give me a recipe for apple pie?",
+    # ]
 
     questions = german_questions
 
@@ -151,7 +154,7 @@ def test_manager_agent():
     for question in questions:
         print(f"Question: {question}")
         response = manager_agent.handle_query(question)
-        print(f"Response: {response}\n")
+        print(f"{response}\n")
             
 def main(): 
     

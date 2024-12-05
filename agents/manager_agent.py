@@ -142,29 +142,41 @@ class ManagerAgent:
         """
         # Step 1: Check Redis Cache
         cached_response = self.redis_agent.check_cache(question)
-        if cached_response:
-            return cached_response
+        if cached_response is not None:
+            return f"Cached Response from Redis: [{cached_response}]"
+        
+        else:
+            # Step 2: Classify the Question
+            response = "Response"
+            classification_response = self.classify_question(question)  # Returns {"classification": "<category_name>"}
+            classification = ""
+            try:
+                classification_data = json.loads(classification_response)
+                classification = classification_data.get("classification")
+            except json.JSONDecodeError:
+                return f"{response}: Entschuldigung, ich konnte Ihre Frage nicht verstehen."  # Handle invalid JSON response
 
-        # Step 2: Classify the Question
-        classification_response = self.classify_question(question)  # Returns {"classification": "<category_name>"}
-        classification = ""
-        try:
-            classification_data = json.loads(classification_response)
-            classification = classification_data.get("classification")
-        except json.JSONDecodeError:
-            return "Entschuldigung, ich konnte Ihre Frage nicht verstehen."  # Handle invalid JSON response
-
-        # Step 3: Route to Appropriate Agent
-        match classification:
-            case "neo4j":
-                return self.neo4j_agent.handle_query(question)
-            case "mongodb":
-                return self.mongodb_agent.handle_query(question)
-            case "minio":
-                return self.minio_agent.handle_query(question)
-            case "postgres":
-                return self.postgres_agent.handle_query(question)
-            case "none":
-                return "Entschuldigung, diese Frage gehört nicht zu meinem Anwendungsbereich."
-            case _:
-                return "Entschuldigung, ich konnte Ihre Frage nicht verstehen."
+            # Step 3: Route to Appropriate Agent
+            match classification:
+                case "neo4j":
+                    response = f"{response} from Neo4J: {self.neo4j_agent.handle_query(question)}"
+                case "mongodb":
+                    response = f"{response} from MongoDB: {self.mongodb_agent.handle_query(question)}"
+                case "minio":
+                    response = f"{response} from MinIO: {self.minio_agent.handle_query(question)}"
+                case "postgres":
+                    response = f"{response} from Postgres: {self.postgres_agent.handle_query(question)}"
+                case "none":
+                    response = f"{response}: Entschuldigung, diese Frage gehört nicht zu meinem Anwendungsbereich."
+                case _:
+                    response = f"{response}: Entschuldigung, ich konnte Ihre Frage nicht verstehen."
+                
+            self.redis_agent.store_cache(question, response)
+            
+            return response
+    
+    def clear_cache(self):
+        """
+        Clear all cached responses from the Redis database.
+        """
+        self.redis_agent.clear_cache()

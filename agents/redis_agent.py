@@ -1,8 +1,9 @@
 import redis
 import hashlib
+from config.settings import REDIS_HOST, REDIS_PORT
 
 class RedisAgent:
-    def __init__(self, host="localhost", port=6379, db=0):
+    def __init__(self, host=REDIS_HOST, port=REDIS_PORT, db=0):
         """
         Initialize the RedisAgent with connection details.
         
@@ -25,7 +26,7 @@ class RedisAgent:
         """
         return hashlib.sha256(question.encode()).hexdigest()
 
-    def check_cache(self, question: str) -> str:
+    def check_cache(self, question: str) -> str | None:
         """
         Check if the question has a cached response in Redis.
         
@@ -38,10 +39,8 @@ class RedisAgent:
         key = self._generate_cache_key(question)
         cached_response = self.client.get(key)
         if cached_response:
-            print(f"Cache hit for question: {question}")
-        else:
-            print(f"Cache miss for question: {question}")
-        return cached_response
+            return cached_response
+        return None
 
     def store_cache(self, question: str, response: str, ttl=3600):
         """
@@ -54,4 +53,10 @@ class RedisAgent:
         """
         key = self._generate_cache_key(question)
         self.client.set(key, response, ex=ttl)
-        print(f"Cached response for question: {question}")
+
+    def clear_cache(self):
+        """
+        Clear all entries in the Redis cache.
+        """
+        self.client.flushdb()
+        print("[Redis cache cleared]\n\n")
