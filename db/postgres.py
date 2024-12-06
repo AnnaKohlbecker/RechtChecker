@@ -1,6 +1,7 @@
 import psycopg2
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from config.settings import PG_HOST, PG_PORT, PG_USER, PG_PASSWORD, PG_DB
+from models.embeddings import process_articles_with_embeddings
 
 def initialize_postgresql(reset=False):
     """
@@ -56,7 +57,14 @@ def initialize_postgresql(reset=False):
         )
         conn.commit()
         print(f"PostgreSQL database '{PG_DB}' initialized successfully.")
-        return conn
+        
+        # Process structured articles and generate embeddings
+        STRUCTURED_DATA_PATH = "data/GG_structured.json"
+        EMBEDDING_MODEL = "mxbai-embed-large:latest"
+        articles_with_embeddings = process_articles_with_embeddings(STRUCTURED_DATA_PATH, EMBEDDING_MODEL)
+        # Insert documents into PostgreSQL
+        insert_documents_pg(conn, articles_with_embeddings)
+    
     except Exception as e:
         print(f"Error initializing PostgreSQL: {e}")
         return None

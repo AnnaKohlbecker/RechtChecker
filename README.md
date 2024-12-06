@@ -14,10 +14,42 @@ The system operates through a multi-agent architecture where a "Manager Agent" c
    - If the question is not cached, the Manager Agent determines which database to query and delegates the task to the corresponding agent.
 3. The database-specific agent retrieves the necessary information, returning it to the Manager Agent, which then responds to the user.
 
+### Agents
+
+**_Manager Agent_**:
+
+- Categorizes questions and assigns them to agents.
+- No data storage.
+
+**_Redis Agent_**:
+
+- Provides cached responses.
+- In-Memory DB: Stores key-value pairs (questions-responses) in Cache.
+
+**_MinIO Agent_**:
+
+- Retrieves PDFs of articles.
+- Object-Oriented DB: Stores PDFs as objects in object storage.
+
+**_MongoDB Agent_**:
+
+- Summarizes and explains articles.
+- Document DB: Stores data structured by articles as a JSON file.
+
+**_Neo4J Agent_**:
+
+- Handles article relationships.
+- Graph DB: Stores data as nodes and relationships in a graph.
+
+**_Postgres Agent_**:
+
+- Answers general legal questions.
+- Vector DB: Stores data chunks (articles) as vector embeddings.
+
 ### Workflow
 
-1. **Manager Agent → Redis Agent → Manager Agent**
-2. **Manager Agent → MinIO Agent / MongoDB Agent / Neo4J Agent / Postgres Agent → Manager Agent**
+1. Manager Agent → Redis Agent → Manager Agent
+2. Manager Agent → MinIO Agent / MongoDB Agent / Neo4J Agent / Postgres Agent → Manager Agent
 
 ## Data Sources
 
