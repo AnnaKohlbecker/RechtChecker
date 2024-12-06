@@ -4,10 +4,11 @@ import psutil
 
 # List of required container names
 REQUIRED_CONTAINERS = [
+    "rechtchecker-mongodb-1",
     "rechtchecker-timescaledb-1",
-    "rechtchecker-redis-1",
+    "rechtchecker-neo4j-1",
     "rechtchecker-minio-1",
-    "rechtchecker-mongodb-1"
+    "rechtchecker-redis-1",
 ]
 
 def is_docker_desktop_running():

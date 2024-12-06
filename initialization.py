@@ -288,75 +288,10 @@ def initialize_data():
     else:
         print("Data already initialized.")
     
-def initialize_dbs():
+def initialize_dbs(reset):
     print("\n*** Initialize Databases ***")
     # Initialize Databases (Postgres, MongoDB, Redis, MinIO)
     # redis_conn = initialize_redis()
-    initialize_postgresql()
+    initialize_postgresql(reset=reset)
     # mongo_db = initialize_mongodb()
     # minio_conn = initialize_minio()
-    
-# llm_client = LLMClient()
-# test_instruct_model(llm_client, "Fass mir bitte Artikel 6 aus dem Grundgesetz zusammen.")
-# test_chat_model(llm_client, "Fass mir bitte Artikel 6 aus dem Grundgesetz zusammen.")
-
-# pg_conn = initialize_postgresql(reset=True)
-
-# if not pg_conn:
-#     print("Failed to initialize PostgreSQL. Exiting.")
-#     return
-
-# pg_conn.close()
-# print("All articles processed and stored successfully.")
-
-
-# # Load the data from JSON file
-# file_path = "data/GG.txt"
-# data = load_data(file_path)
-
-# input_file = "GG"
-# chunk_data(input_file)
-
-# Insert Data in MongoDB
-# insert_data_in_mongo(data, mongo_db)
-
-# Indexing und Aggregation
-
-# Vector Datenbanken
-# insert_data_in_pg_as_vector(pg_conn)
-
-# Redis: In Memory Datenbank
-# insert_data_in_redis(redis_conn)
-
-# Feynman Technique
-
-# LLM Chatbot mit RAG
-
-# Min.IO Object Storage
-
-
-# # Insert Data
-# insert_data(pg_conn, mongo_db, redis_conn, minio_conn)
-
-# # Chatbot Interaction
-# chat_history = [
-#     {
-#         "role": "system",
-#         "content": "You are a helpful assistant knowledgeable about technology and databases.",
-#     }
-# ]
-# print("Chatbot ready. Type your queries below:")
-
-# while True:
-#     user_query = input("You: ")
-#     if user_query.lower() in ["exit", "quit"]:
-#         break
-
-#     response = generate_response(pg_conn, user_query, chat_history)
-#     print(f"Assistant: {response}")
-
-# # Close connections
-# pg_conn.close()
-
-# except Exception as e:
-#    print(f"An error occurred: {e}")

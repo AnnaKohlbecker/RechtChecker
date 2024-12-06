@@ -149,8 +149,8 @@ def start_rechtchecker():
 def main(): 
     initialize_docker_and_containers()
     initialize_data()
-    initialize_dbs()
+    initialize_dbs(reset=True)
     # start_rechtchecker()
     
 if __name__ == "__main__":
-    main()
+    main() 
