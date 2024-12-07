@@ -7,7 +7,6 @@ class Neo4jAgent:
         self.llm_client = LLMClient()
         self.session = neo4j.initialize_neo4j()
 
-
     def get_article_number(self, question: str) -> str:
         prompt_german = f"""
                 Du bist ein Experte darin erwähnte Nummern aus Benutzerfragen zu entnehmen.
@@ -39,16 +38,81 @@ class Neo4jAgent:
         )
         return response["choices"][0]["message"]["content"].strip().lower()
 
+
+    def get_question_type(self, question: str) -> str:
+        """
+        returns one of the following question types:
+
+            - referenced_articles
+            - referencing_articles
+            - none
+        """
+        prompt_german = f"""
+        Du bist ein Experte in der Kategorisierung von Anfragen, die mit Artikelverweisen zu tun haben.
+        Deine Aufgabe ist es, Benutzerfragen in eine der folgenden Kategorien einzuordnen. 
+        Bitte beachte, dass sich die Kategorien sehr ähnlich sind, du musst dir bei deiner Antwort also sehr sicher sein.
+        Jede Frage gehört genau einer Kategorie. Jede Frage muss genau und nur eine Kategorie bekommen:
+
+        - **"referenced_articles"**: Für Fragen darüber, auf welche Artikel der gegebene Artikel verweist. Achte besonders auf derartige Formulierungen:
+        - "Auf welche Artikel verweist Artikel X?"
+        - "Welche Artikel sind mit Artikel X verknüpft?"
+        - "Von welchen Artikeln hängt Artikel X ab?"
+        Beispiele:
+            - "Auf welche Artikel verweist Artikel 9?" -> referenced_articles
+            - "Auf welche Artikel verweist Artikel 12?" -> referenced_articles       
+            - "Von welchen Artikeln hängt Artikel 15 ab?" -> referenced_articles
+        
+        - **"referencing_articles"**: Für Fragen darüber, welche Artikel auf den gegebenen Artikel veweisen. Achte besonders auf derartige Formulierungen:
+        - "Welche Artikel verweisen auf..."
+        - "Welche Artikel stellen eine Verbindung zu Artikel X her?"
+        - "Welche Artikel nehmen Bezug auf Artikel X?"
+        - "Welche Verweise gibt es auf Artikel X?"
+        - "Welche Artikel sind mit Artikel X verknüpft?"
+        Beispiele:
+            - "Welche Artikel verweisen auf Artikel 7?" -> referencing_articles
+            - "Welche Verweise gibt es auf Artikel 55?" -> referencing_articles
+            - "Welche Artikel nehmen Bezug auf Artikel 60?" -> referencing_articles
+            - "Welche Artikel stellen eine Verbindung zu Artikel 30 her?" -> referencing_articles
+
+        - **"none"**: Für Fragen, die nicht mit den oben genannten Kategorien oder dem Grundgesetz zusammenhängen, wie z. B. persönliche oder irrelevante Fragen. 
+        - Also allgemein für Fragen, die nichts mit Referenzierungen zwischen Grundgesetzartikeln zu tun haben.
+        - Auch für Fragen, wo du dir nicht sicher bist, welche Kategorie dazu passt. Beispiele:
+        - "Wie heißt mein Hund?" -> none
+        - "Was ist das Wetter morgen?" -> none
+        - "Wie groß ist die Erde?" -> none
+        - "Was ist die Hauptstadt von Frankreich?" -> none
+
+        Antworte **nur** und wirklich **NUR** mit dem Kategoriennamen
+        
+        Benutzerfrage: "{question}"
+        """
+        messages = [{"role": "user", "content": prompt_german}]
+        response = self.llm_client.query_instruct(
+            model="meta-llama/Llama-3.2-1B-Instruct",
+            messages=messages,
+            max_tokens=10,
+            temperature=0
+        )
+        return response["choices"][0]["message"]["content"].strip().lower()
+
+
     def handle_query(self, question: str) -> str:
-        """
-        Placeholder for Neo4j Agent query handling.
+        response = ""
 
-        Args:
-            question (str): The user question.
-
-        Returns:
-            str: "Not Implemented"
-        """
         article_number = self.get_article_number(question)
+        question_type = self.get_question_type(question)
 
-        return f"The requested article number is {article_number}"
+        match question_type:
+            case "referenced_articles":
+                response += (f"Folgende Artikel werden von Artikel {article_number} referenziert: "
+                             f"{neo4j.get_referenced_articles(self.session, article_number)}")
+            case "referencing_articles":
+                response += (f"Folgende Artikel referenzieren Artikel {article_number}: "
+                             f"{neo4j.get_articles_referencing(self.session, article_number)}")
+            case "none":
+                response += "Entschuldigung, diese Frage gehört nicht zu meinem Anwendungsbereich."
+
+            case _:
+                response += "Entschuldigung, ich konnte Ihre Frage nicht verstehen."
+
+        return response
