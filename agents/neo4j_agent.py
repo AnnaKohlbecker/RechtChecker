@@ -53,26 +53,32 @@ class Neo4jAgent:
         Bitte beachte, dass sich die Kategorien sehr ähnlich sind, du musst dir bei deiner Antwort also sehr sicher sein.
         Jede Frage gehört genau einer Kategorie. Jede Frage muss genau und nur eine Kategorie bekommen:
 
-        - **"referenced_articles"**: Für Fragen darüber, auf welche Artikel der gegebene Artikel verweist. Achte besonders auf derartige Formulierungen:
+        - **referenced_articles**: Für Fragen darüber, auf welche Artikel der gegebene Artikel verweist. Achte besonders auf derartige Formulierungen:
         - "Auf welche Artikel verweist Artikel X?"
-        - "Welche Artikel sind mit Artikel X verknüpft?"
         - "Von welchen Artikeln hängt Artikel X ab?"
+        - "Welche Artikeln werden im Artikel X referenziert?"
         Beispiele:
             - "Auf welche Artikel verweist Artikel 9?" -> referenced_articles
+            - "Welche Artikel werden im Artikel 13 referenziert?" -> referenced_articles
             - "Auf welche Artikel verweist Artikel 12?" -> referenced_articles       
             - "Von welchen Artikeln hängt Artikel 15 ab?" -> referenced_articles
         
-        - **"referencing_articles"**: Für Fragen darüber, welche Artikel auf den gegebenen Artikel veweisen. Achte besonders auf derartige Formulierungen:
-        - "Welche Artikel verweisen auf..."
+        - **referencing_articles**: Für Fragen darüber, welche Artikel auf den gegebenen Artikel veweisen. Achte besonders auf derartige Formulierungen:
+        - "Welche Artikel verweisen auf Artikel X?"
         - "Welche Artikel stellen eine Verbindung zu Artikel X her?"
         - "Welche Artikel nehmen Bezug auf Artikel X?"
         - "Welche Verweise gibt es auf Artikel X?"
         - "Welche Artikel sind mit Artikel X verknüpft?"
+        - "Gibt es Artikel, die auf Artikel X Bezug nehmen?"
         Beispiele:
             - "Welche Artikel verweisen auf Artikel 7?" -> referencing_articles
-            - "Welche Verweise gibt es auf Artikel 55?" -> referencing_articles
+            - "Welche Artikel verweisen auf Artikel 12?" -> referencing_articles
+            - "Welche Verweise gibt es auf Artikel 1?" -> referencing_articles
+            - "Im Grundgesetz, welche Verweise gibt es auf Artikel 2?" -> referencing_articles
             - "Welche Artikel nehmen Bezug auf Artikel 60?" -> referencing_articles
             - "Welche Artikel stellen eine Verbindung zu Artikel 30 her?" -> referencing_articles
+            - "Gibt es Artikel, die auf Artikel 20 Bezug nehmen?" -> referencing_articles
+            - "Welche Verweise gibt es auf Artikel 1 des Grundgesetzes?" -> referencing_articles
 
         - **"none"**: Für Fragen, die nicht mit den oben genannten Kategorien oder dem Grundgesetz zusammenhängen, wie z. B. persönliche oder irrelevante Fragen. 
         - Also allgemein für Fragen, die nichts mit Referenzierungen zwischen Grundgesetzartikeln zu tun haben.
@@ -82,7 +88,12 @@ class Neo4jAgent:
         - "Wie groß ist die Erde?" -> none
         - "Was ist die Hauptstadt von Frankreich?" -> none
 
-        Antworte **nur** und wirklich **NUR** mit dem Kategoriennamen
+        Antworte **nur** und wirklich **NUR** mit dem Kategoriennamen. Deine Ausgabe darf also nur so aussehen:
+        - referenced_articles
+        - referencing_articles
+        - none
+        
+        Wenn du dir nicht sicher bist, antworte lieber mit none.
         
         Benutzerfrage: "{question}"
         """
