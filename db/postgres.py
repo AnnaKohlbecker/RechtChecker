@@ -1,96 +1,3 @@
-# from typing import Dict, List, Sequence
-# import psycopg2
-# from psycopg2 import sql
-# from config.settings import PG_HOST, PG_PORT, PG_USER, PG_PASSWORD, PG_DB, PG_TABLE, PG_SCHEMA
-# from models.embeddings import process_articles_with_embeddings
-
-# def initialize_postgresql(reset, data_path):
-#     try:
-#         # Connect to the target database directly
-#         with psycopg2.connect(
-#             dbname=PG_DB, user=PG_USER, password=PG_PASSWORD, host=PG_HOST, port=PG_PORT
-#         ) as conn:
-#             conn.autocommit = True
-#             with conn.cursor() as cur:
-#                 if reset:              
-#                     # Get all table names from the specified schema
-#                     cur.execute(sql.SQL("""
-#                         SELECT tablename 
-#                         FROM pg_tables 
-#                         WHERE schemaname = %s;
-#                     """), [PG_SCHEMA])
-#                     tables = cur.fetchall()
-                    
-#                     # Truncate all tables
-#                     for table in tables:
-#                         cur.execute(sql.SQL("TRUNCATE TABLE {}.{} CASCADE;").format(
-#                             sql.Identifier(PG_SCHEMA),
-#                             sql.Identifier(table[0])
-#                         ))
-                        
-#                     #Create the schema if it does not exist
-#                     cur.execute(sql.SQL("CREATE SCHEMA IF NOT EXISTS {};").format(
-#                         sql.Identifier(PG_SCHEMA)
-#                     ))
-                    
-#                     #Create the table if it does not exist
-#                     cur.execute(sql.SQL(
-#                         f"""
-#                         CREATE TABLE IF NOT EXISTS {PG_SCHEMA}.{PG_TABLE} (
-#                             id SERIAL PRIMARY KEY,
-#                             embedding FLOAT8[] NOT NULL,
-#                             document TEXT NOT NULL,
-#                             article_number INT,
-#                             title TEXT
-#                         );
-#                         """
-#                     ))
-                    
-#                     # Re-enable constraints
-#                     cur.execute("SET session_replication_role = 'origin';")
-#                     print(f"All data cleared from the database '{PG_DB}'.")
-#                     articles_with_embeddings = process_articles_with_embeddings(data_path=data_path, embedding_model="mxbai-embed-large:latest")
-#                     insert_articles_with_embeddings(conn, articles_with_embeddings, PG_TABLE, PG_SCHEMA)
-            
-#         print("Postgres initialized.")
-                    
-#     except psycopg2.Error as e:
-#         print(f"Database error: {e}")
-
-# def insert_articles_with_embeddings(pg_conn, articles_with_embeddings: List[Dict[str, Sequence[float]]], table_name: str, schema_name: str):
-#     """
-#     Inserts articles and embeddings into PostgreSQL.
-#     """
-#     if not pg_conn:
-#         print("Invalid PostgreSQL connection. Skipping insertion.")
-#         return
-
-#     try:
-#         print(f"Inserting embeddings into PostgreSQL table '{schema_name}.{table_name}'...")
-#         pg_cur = pg_conn.cursor()
-#         for article in articles_with_embeddings:
-#             embedding = article.get("embedding")
-#             content = article.get("content")
-#             article_number = article.get("article_number")
-#             title = article.get("title")
-
-#             # Insert into PostgreSQL
-#             pg_cur.execute(sql.SQL("""
-#                 INSERT INTO {}.{} (embedding, document, article_number, title) 
-#                 VALUES (%s, %s, %s, %s);
-#             """).format(
-#                 sql.Identifier(schema_name),
-#                 sql.Identifier(table_name)
-#             ), (embedding, content, article_number, title))
-#         pg_conn.commit()
-#         print("Documents inserted successfully.")
-#     except Exception as e:
-#         print(f"Error inserting documents into PostgreSQL: {e}")
-#     finally:
-#         if 'pg_cur' in locals() and pg_cur:
-#             pg_cur.close()
-
-
 from typing import Dict, List, Sequence
 import psycopg2
 from psycopg2 import sql
@@ -179,6 +86,6 @@ def insert_articles_with_embeddings(conn, articles_with_embeddings: List[Dict[st
                     sql.Identifier(value_names['embedding']),
                 ), (article.get(value_names['article_number']), article.get(value_names['title']), article.get(value_names['content']), article.get(value_names['embedding'])))
             conn.commit()
-        print("Documents inserted successfully.")
+        print("Articles inserted successfully.")
     except Exception as e:
-        print(f"Error inserting documents into PostgreSQL: {e}")
+        print(f"Error inserting articles into PostgreSQL: {e}")
