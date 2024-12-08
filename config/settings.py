@@ -23,6 +23,7 @@ PG_PASSWORD = os.getenv("PG_PASSWORD")
 # Neo4j
 NEO4J_HOST = os.getenv("NEO4J_HOST")
 NEO4J_PORT = os.getenv("NEO4J_PORT")
+NEO4J_USER = os.getenv("NEO4J_USER")
 NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
 
 # MinIO
@@ -37,3 +38,6 @@ REDIS_PORT = os.getenv("REDIS_PORT")
 
 HF_API_TOKEN = os.getenv("HF_API_TOKEN")
 # HF_API_EMBEDDINGS_URL = os.getenv("HF_API_EMBEDDINGS_URL")
+
+JSON_PATH = os.getenv("JSON_PATH")
+STRUCTURED_JSON_PATH = os.getenv("STRUCTURED_JSON_PATH")
