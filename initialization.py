@@ -15,11 +15,10 @@ from dotenv import load_dotenv
 import os
 import redis
 from utils.docker_utils import start_docker
-from db.postgres import initialize_postgresql,insert_documents_pg
+from db.postgres import initialize_postgresql
 from db.mongodb import initialize_mongodb
 from db.redis import initialize_redis
 from utils.file_utils import chunk_text_delimiter, preprocess_articles
-from models.embeddings import process_articles_with_embeddings
 from models.llm_client import LLMClient
 
 # Database Configuration
@@ -286,12 +285,14 @@ def initialize_data():
     if not os.path.exists(structured_data_path):
         preprocess_articles(input_path=chunked_data_path, output_path=structured_data_path)
     else:
-        print("Data already initialized.")
+        print("Data initialized.")
+    return structured_data_path
     
-def initialize_dbs(reset):
+def initialize_dbs(reset, data_path):
     print("\n*** Initialize Databases ***")
     # Initialize Databases (Postgres, MongoDB, Redis, MinIO)
     # redis_conn = initialize_redis()
-    initialize_postgresql(reset=reset)
+    embedding_path = "data/articles_with_embeddings.json"
+    initialize_postgresql(reset=reset, data_path=data_path, embedding_model="mxbai-embed-large:latest", embedding_path=embedding_path)
     # mongo_db = initialize_mongodb()
     # minio_conn = initialize_minio()

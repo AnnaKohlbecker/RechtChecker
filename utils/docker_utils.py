@@ -56,10 +56,8 @@ def start_docker_services():
 def verify_containers():
     """Verify if all required containers are running."""
     running_containers = get_running_containers()
-
-    # Find missing containers
     missing_containers = [container for container in REQUIRED_CONTAINERS if container not in running_containers]
-
+    
     if missing_containers:
         print("Starting missing containers...")
         start_docker_services()
@@ -68,11 +66,9 @@ def verify_containers():
     print("Running containers:", running_containers)
 
 def start_docker():
-    # Step 1: Check if Docker Desktop is running
     if not is_docker_desktop_running():
         start_docker_desktop()
     else:
-        print("Docker Desktop is already running.")
-
-    # Step 2: Verify if the required containers are running
+        print("Docker Desktop is running.")
     verify_containers()
+    print("Docker and containers initialized.")
