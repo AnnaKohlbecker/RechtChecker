@@ -54,16 +54,29 @@ def create_references(session, articles):
 def get_referenced_articles(session, article_number):
     query = """
     MATCH (a:Article {article_number: $article_number})-[:REFERENCES]->(referenced:Article)
-    RETURN referenced.article_number AS referenced_number
+    RETURN referenced.article_number AS referenced_number, 
+           referenced.content AS content
     """
     result = session.run(query, article_number=str(article_number))
-    return [record["referenced_number"] for record in result]
-
+    return [
+        {
+            "article_number": record["referenced_number"],
+            "content": record["content"]
+        }
+        for record in result
+    ]
 
 def get_articles_referencing(session, article_number):
     query = """
     MATCH (referencing:Article)-[:REFERENCES]->(a:Article {article_number: $article_number})
-    RETURN referencing.article_number AS referencing_number
+    RETURN referencing.article_number AS referencing_number, 
+           referencing.content AS content
     """
     result = session.run(query, article_number=str(article_number))
-    return [record["referencing_number"] for record in result]
+    return [
+        {
+            "article_number": record["referencing_number"],
+            "content": record["content"]
+        }
+        for record in result
+    ]

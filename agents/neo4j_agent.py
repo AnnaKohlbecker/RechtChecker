@@ -98,21 +98,30 @@ class Neo4jAgent:
 
     def handle_query(self, question: str) -> str:
         response = ""
-
         article_number = self.get_article_number(question)
         question_type = self.get_question_type(question)
+        articles = []
 
         match question_type:
             case "referenced_articles":
-                response += (f"Folgende Artikel werden von Artikel {article_number} referenziert: "
-                             f"{neo4j.get_referenced_articles(self.session, article_number)}")
+                response += f"Folgende Artikel werden von Artikel {article_number} referenziert:\n"
+                articles = neo4j.get_referenced_articles(self.session, article_number)
             case "referencing_articles":
-                response += (f"Folgende Artikel referenzieren Artikel {article_number}: "
-                             f"{neo4j.get_articles_referencing(self.session, article_number)}")
+                response += f"Folgende Artikel referenzieren Artikel {article_number}:\n"
+                articles = neo4j.get_articles_referencing(self.session, article_number)
             case "none":
-                response += "Entschuldigung, diese Frage gehört nicht zu meinem Anwendungsbereich."
+                return "Entschuldigung, diese Frage gehört nicht zu meinem Anwendungsbereich."
 
             case _:
-                response += "Entschuldigung, ich konnte Ihre Frage nicht verstehen."
+                return "Entschuldigung, ich konnte Ihre Frage nicht verstehen."
+
+        if len(articles) == 0:
+            return response + "Keine Artikel gefunden."
+
+        for article in articles:
+            response += (
+                f"Artikel {article['article_number']}:\n"
+                f"{article['content']}\n\n"
+            )
 
         return response
