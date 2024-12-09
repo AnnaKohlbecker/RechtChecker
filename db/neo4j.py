@@ -5,12 +5,11 @@ import neo4j
 
 def initialize_neo4j():
     try:
-        print("Initializing Neo4j...")
         uri = f"bolt://{NEO4J_HOST}:{NEO4J_PORT}"
         auth = (NEO4J_USER, NEO4J_PASSWORD)
         driver = neo4j.GraphDatabase.driver(uri, auth=auth)
         driver.verify_connectivity()
-        print("Neo4j initialized successfully.")
+        print("Neo4j initialized.")
 
         data = ""
         with open(STRUCTURED_JSON_PATH, 'r', encoding='utf-8') as file:

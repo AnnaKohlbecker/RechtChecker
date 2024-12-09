@@ -1,5 +1,5 @@
 class MongoDBAgent:
-    def handle_query(self, question: str) -> str:
+    def handle_question(self, question: str) -> str:
         """
         Placeholder for MongoDB Agent query handling.
 

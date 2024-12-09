@@ -1,95 +1,90 @@
+from typing import Dict, List, Sequence
 import psycopg2
-from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
-from config.settings import PG_HOST, PG_PORT, PG_USER, PG_PASSWORD, PG_DB
+from psycopg2 import sql
+from config.settings import EMBEDDING_MODEL, EMBEDDING_PATH, PG_HOST, PG_PORT, PG_USER, PG_PASSWORD, PG_DB, PG_TABLE, PG_SCHEMA, STRUCTURED_DATA_PATH
+from models.embeddings import generate_articles_with_embeddings
 
-def initialize_postgresql(reset=False):
-    """
-    Initialize the PostgreSQL database and ensure the necessary table and extension exist.
-
-    :param reset: If True, drops the existing database before reinitializing.
-    """
+def initialize_postgresql(reset):
     try:
-        # Connect to the default 'postgres' database
-        conn = psycopg2.connect(
-            dbname="postgres", user=PG_USER, password=PG_PASSWORD, host=PG_HOST, port=PG_PORT
-        )
-        conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
-        cur = conn.cursor()
-
-        if reset:
-            # Check if the database exists
-            cur.execute(f"SELECT 1 FROM pg_database WHERE datname = '{PG_DB}';")
-            if cur.fetchone():
-                print(f"Dropping existing database '{PG_DB}'...")
-                # Terminate active connections to the database
-                cur.execute(
-                    f"""
-                    SELECT pg_terminate_backend(pg_stat_activity.pid)
-                    FROM pg_stat_activity
-                    WHERE pg_stat_activity.datname = '{PG_DB}'
-                      AND pid <> pg_backend_pid();
-                    """
-                )
-                # Drop the database
-                cur.execute(f"DROP DATABASE {PG_DB};")
-                print(f"Database '{PG_DB}' dropped successfully.")
-
-        # Create the database
-        print(f"Creating database '{PG_DB}'...")
-        cur.execute(f"CREATE DATABASE {PG_DB};")
-        conn.close()
-
-        # Connect to the new database
-        conn = psycopg2.connect(
+        # Connect to the target database
+        with psycopg2.connect(
             dbname=PG_DB, user=PG_USER, password=PG_PASSWORD, host=PG_HOST, port=PG_PORT
-        )
-        cur = conn.cursor()
-        cur.execute("CREATE EXTENSION IF NOT EXISTS vector;")
-        cur.execute(
-            """
-            CREATE TABLE IF NOT EXISTS items (
-                id SERIAL PRIMARY KEY,
-                embedding VECTOR(1024),
-                document TEXT
-            );
-            """
-        )
-        conn.commit()
-        print(f"PostgreSQL database '{PG_DB}' initialized successfully.")
+        ) as conn:
+            conn.autocommit = True
+            with conn.cursor() as cur:
+                if reset:
+                    # Drop and recreate schema
+                    cur.execute(sql.SQL("DROP SCHEMA IF EXISTS {} CASCADE;").format(sql.Identifier(PG_SCHEMA)))
+                    cur.execute(sql.SQL("CREATE SCHEMA IF NOT EXISTS {};").format(sql.Identifier(PG_SCHEMA)))
+
+                    # Enable the pgvector extension
+                    cur.execute("CREATE EXTENSION IF NOT EXISTS vector;")
+                    
+                    value_names = {
+                        'article_number': "article_number",
+                        'title': "title",
+                        'content': "content",
+                        'embedding': "embedding",
+                    }
+                    # Generate a sample embedding to determine its dimensionality
+                    # sample_embedding = generate_embedding("test sample", embedding_model, value_names)
+                    # if not sample_embedding:
+                    #     raise ValueError("Failed to generate a sample embedding to determine vector dimensions.")
+                    # embedding_dim = len(sample_embedding)
+                    # print(f"Detected embedding dimensions: {embedding_dim}")
+                    embedding_dim = 1024
+
+                    # Create the table with dynamic embedding dimensions
+                    cur.execute(sql.SQL(
+                        f"""
+                        CREATE TABLE IF NOT EXISTS {PG_SCHEMA}.{PG_TABLE} (
+                            id SERIAL PRIMARY KEY,
+                            {value_names['article_number']} TEXT NOT NULL,
+                            {value_names['title']} TEXT NOT NULL,
+                            {value_names['content']} TEXT NOT NULL,
+                            {value_names['embedding']} VECTOR({embedding_dim})
+                        );
+                        """
+                    ))
+                    
+                    # Process and insert embeddings
+                    articles_with_embeddings = generate_articles_with_embeddings(
+                        data_path=STRUCTURED_DATA_PATH, embedding_path=EMBEDDING_PATH, embedding_model=EMBEDDING_MODEL, value_names=value_names
+                    )
+                    insert_articles_with_embeddings(conn=conn, articles_with_embeddings=articles_with_embeddings, table_name=PG_TABLE, schema_name=PG_SCHEMA, value_names=value_names)
+            
+        print("Postgres initialized.")
+        
         return conn
-    except Exception as e:
-        print(f"Error initializing PostgreSQL: {e}")
-        return None
+                    
+    except psycopg2.Error as e:
+        print(f"Database error: {e}")
+    except ValueError as ve:
+        print(f"Initialization error: {ve}")
 
-
-
-def insert_documents_pg(pg_conn, documents):
+def insert_articles_with_embeddings(conn, articles_with_embeddings: List[Dict[str, Sequence[float]]], table_name: str, schema_name: str, value_names: List[str]):
     """
-    Inserts documents with embeddings into PostgreSQL.
-
-    :param pg_conn: Connection to the PostgreSQL database.
-    :param documents: List of dictionaries containing 'embedding' and 'document'.
+    Inserts articles and embeddings into PostgreSQL using pgvector.
     """
-    if not pg_conn:
-        print("Invalid PostgreSQL connection. Skipping document insertion.")
+    if not conn:
+        print("Invalid PostgreSQL connection. Skipping insertion.")
         return
 
     try:
-        pg_cur = pg_conn.cursor()
-        for doc in documents:
-            embedding = doc["embedding"]
-            content = doc["content"]
-
-            # Insert into PostgreSQL
-            pg_cur.execute(
-                "INSERT INTO items (embedding, document) VALUES (%s, %s);",
-                (embedding, content)
-            )
-        pg_conn.commit()
-        print("Documents inserted successfully into PostgreSQL.")
+        with conn.cursor() as pg_cur:
+            for article in articles_with_embeddings:
+                # Insert into PostgreSQL
+                pg_cur.execute(sql.SQL("""
+                    INSERT INTO {}.{} ({}, {}, {}, {})
+                    VALUES (%s, %s, %s, %s::vector);
+                """).format(
+                    sql.Identifier(schema_name),
+                    sql.Identifier(table_name),
+                    sql.Identifier(value_names['article_number']),
+                    sql.Identifier(value_names['title']),
+                    sql.Identifier(value_names['content']),
+                    sql.Identifier(value_names['embedding']),
+                ), (article.get(value_names['article_number']), article.get(value_names['title']), article.get(value_names['content']), article.get(value_names['embedding'])))
+            conn.commit()
     except Exception as e:
-        print(f"Error inserting documents into PostgreSQL: {e}")
-    finally:
-        if 'pg_cur' in locals() and pg_cur:
-            pg_cur.close()
-
+        print(f"Error inserting articles into PostgreSQL: {e}")
