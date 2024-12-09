@@ -1,9 +1,10 @@
+from config.settings import LLM_MODEL
 from initialization import initialize_data, initialize_dbs, initialize_docker_and_containers
 from agents.manager_agent import ManagerAgent
 
 def test_instruct_model(llm_client, query):
     try:
-        instruct_model_name = "meta-llama/Llama-3.2-1B-Instruct"
+        instruct_model_name = LLM_MODEL
         messages = [{"role": "user", "content": query}]
         instruct_response = llm_client.query_instruct(
             model=instruct_model_name,
@@ -17,7 +18,7 @@ def test_instruct_model(llm_client, query):
         
 def test_chat_model(llm_client, query):
     try:
-        chat_model_url = "https://api-inference.huggingface.co/models/meta-llama/Llama-3.2-1B"
+        chat_model_url = f"https://api-inference.huggingface.co/models/{LLM_MODEL}"
         chat_response = llm_client.query_chat(
             model_url=chat_model_url,
             inputs=query,
@@ -35,39 +36,39 @@ def start_rechtchecker():
     manager_agent.clear_cache()
     
     german_questions = [
-        # Neo4j
-        "Welche Artikel werden im Artikel 13 referenziert?",
-        "Gibt es Artikel auf die Artikel 12 referenziert?",
-        "Welche Artikel verweisen auf Artikel 14?",
-        "Welche Artikel sind mit Artikel 3 verknüpft?",
-        "Gibt es Artikel, die auf Artikel 15 Bezug nehmen?",
-        "Welche Artikel sind mit Artikel 100 verknüpft?",
-        "Welche Verweise gibt es auf Artikel 3 des Grundgesetzes?",
-        "Kannst du mir zeigen, welche Artikel Bezug auf Artikel 13 nehmen?",
+        # # Neo4j
+        # "Welche Artikel werden im Artikel 13 referenziert?",
+        # "Gibt es Artikel auf die Artikel 12 referenziert?",
+        # "Welche Artikel verweisen auf Artikel 14?",
+        # "Welche Artikel sind mit Artikel 3 verknüpft?",
+        # "Gibt es Artikel, die auf Artikel 15 Bezug nehmen?",
+        # "Welche Artikel sind mit Artikel 100 verknüpft?",
+        # "Welche Verweise gibt es auf Artikel 3 des Grundgesetzes?",
+        # "Kannst du mir zeigen, welche Artikel Bezug auf Artikel 13 nehmen?",
 
-        # MongoDB
-        "Was versteht man unter Artikel 16?",
-        "Erkläre mir Artikel 5 des Grundgesetzes.",
-        "Fass Artikel 10 aus dem Grundgesetz zusammen.",
-        "Was bedeutet Artikel 11 im Grundgesetz?",
-        "Erkläre den Inhalt von Artikel 13.",
-        "Kannst du mir eine kurze Zusammenfassung von Artikel 4 geben?",
+        # # MongoDB
+        # "Was versteht man unter Artikel 16?",
+        # "Erkläre mir Artikel 5 des Grundgesetzes.",
+        # "Fass Artikel 10 aus dem Grundgesetz zusammen.",
+        # "Was bedeutet Artikel 11 im Grundgesetz?",
+        # "Erkläre den Inhalt von Artikel 13.",
+        # "Kannst du mir eine kurze Zusammenfassung von Artikel 4 geben?",
 
-        # MinIO
-        "Gib mir Artikel 3 als PDF.",
-        "Lade Artikel 7 als PDF herunter.",
-        "Zeig mir Artikel 15 als PDF.",
-        "Kannst du Artikel 18 als PDF bereitstellen?",
-        "Ich brauche Artikel 6 in einer PDF-Datei.",
-        "Gibt es Artikel 9 in PDF-Form?",
+        # # MinIO
+        # "Gib mir Artikel 3 als PDF.",
+        # "Lade Artikel 7 als PDF herunter.",
+        # "Zeig mir Artikel 15 als PDF.",
+        # "Kannst du Artikel 18 als PDF bereitstellen?",
+        # "Ich brauche Artikel 6 in einer PDF-Datei.",
+        # "Gibt es Artikel 9 in PDF-Form?",
 
         # Postgres
-        "Ich werde auf der Arbeit gezwungen etwas zu tun, was ich nicht möchte. Habe ich Recht?",
-        "Mein Chef will mich ohne Grund feuern. Was kann ich tun?",
-        "Ich wurde auf der Arbeit beleidigt. Was sind meine Rechte?",
+        "Mein Arbeitgeber verlangt Überstunden, die ich nicht leisten möchte. Welche Rechte habe ich?",
+        "Ich werde wegen meiner Religion benachteiligt. Was sagt das Grundgesetz dazu?",
+        "Mein Chef verlangt von mir, gegen meine moralischen Überzeugungen zu handeln. Was kann ich tun?",
         "Darf mein Arbeitgeber mich ohne Vorwarnung entlassen?",
-        "Ich fühle mich in meiner Nachbarschaft diskriminiert. Was kann ich tun?",
-        "Welche Rechte habe ich, wenn ich in der Öffentlichkeit gefilmt werde?",
+        "Mein Arbeitgeber überprüft meine privaten Nachrichten. Ist das erlaubt?",
+        "Ein Kollege verbreitet Unwahrheiten über mich. Kann ich mich rechtlich dagegen wehren?",
 
         # None
         "Was ist das Wetter morgen in Paris?",
@@ -79,13 +80,13 @@ def start_rechtchecker():
         "Wann wurde das erste Auto erfunden?",
         "Kannst du mir ein Rezept für Apfelkuchen geben?",
     
-        # Redis
-        "Ich werde auf der Arbeit gezwungen etwas zu tun, was ich nicht möchte. Habe ich Recht?",
-        "Mein Chef will mich ohne Grund feuern. Was kann ich tun?",
-        "Ich wurde auf der Arbeit beleidigt. Was sind meine Rechte?",
-        "Darf mein Arbeitgeber mich ohne Vorwarnung entlassen?",
-        "Ich fühle mich in meiner Nachbarschaft diskriminiert. Was kann ich tun?",
-        "Welche Rechte habe ich, wenn ich in der Öffentlichkeit gefilmt werde?",
+        # # Redis
+        # "Ich werde auf der Arbeit gezwungen etwas zu tun, was ich nicht möchte. Habe ich Recht?",
+        # "Mein Chef will mich ohne Grund feuern. Was kann ich tun?",
+        # "Ich wurde auf der Arbeit beleidigt. Was sind meine Rechte?",
+        # "Darf mein Arbeitgeber mich ohne Vorwarnung entlassen?",
+        # "Ich fühle mich in meiner Nachbarschaft diskriminiert. Was kann ich tun?",
+        # "Welche Rechte habe ich, wenn ich in der Öffentlichkeit gefilmt werde?",
     ]
     
     # english_questions = [
@@ -145,14 +146,14 @@ def start_rechtchecker():
     # Process each question
     for question in questions:
         print(f"Question: {question}")
-        response = manager_agent.handle_query(question)
+        response = manager_agent.handle_question(question)
         print(f"{response}\n")
             
 def main(): 
     initialize_docker_and_containers()
     data_path = initialize_data()
-    initialize_dbs(reset=True, data_path=data_path)
-    # start_rechtchecker()
+    initialize_dbs(reset=False, data_path=data_path)
+    start_rechtchecker()
     
 if __name__ == "__main__":
     main()

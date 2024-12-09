@@ -2,7 +2,7 @@ from typing import Dict, List, Sequence
 import psycopg2
 from psycopg2 import sql
 from config.settings import PG_HOST, PG_PORT, PG_USER, PG_PASSWORD, PG_DB, PG_TABLE, PG_SCHEMA
-from models.embeddings import generate_articles_with_embeddings, generate_embedding
+from models.embeddings import generate_articles_with_embeddings
 
 def initialize_postgresql(reset, data_path, embedding_model, embedding_path):
     try:
@@ -20,25 +20,26 @@ def initialize_postgresql(reset, data_path, embedding_model, embedding_path):
                     # Enable the pgvector extension
                     cur.execute("CREATE EXTENSION IF NOT EXISTS vector;")
                     
-                    # Generate a sample embedding to determine its dimensionality
                     value_names = {
                         'article_number': "article_number",
                         'title': "title",
                         'content': "content",
                         'embedding': "embedding",
                     }
-                    sample_embedding = generate_embedding("test sample", embedding_model, value_names)
-                    if not sample_embedding:
-                        raise ValueError("Failed to generate a sample embedding to determine vector dimensions.")
-                    embedding_dim = len(sample_embedding)
-                    print(f"Detected embedding dimensions: {embedding_dim}")
+                    # Generate a sample embedding to determine its dimensionality
+                    # sample_embedding = generate_embedding("test sample", embedding_model, value_names)
+                    # if not sample_embedding:
+                    #     raise ValueError("Failed to generate a sample embedding to determine vector dimensions.")
+                    # embedding_dim = len(sample_embedding)
+                    # print(f"Detected embedding dimensions: {embedding_dim}")
+                    embedding_dim = 1024
 
                     # Create the table with dynamic embedding dimensions
                     cur.execute(sql.SQL(
                         f"""
                         CREATE TABLE IF NOT EXISTS {PG_SCHEMA}.{PG_TABLE} (
                             id SERIAL PRIMARY KEY,
-                            {value_names['article_number']} INT NOT NULL,
+                            {value_names['article_number']} TEXT NOT NULL,
                             {value_names['title']} TEXT NOT NULL,
                             {value_names['content']} TEXT NOT NULL,
                             {value_names['embedding']} VECTOR({embedding_dim})
@@ -76,7 +77,7 @@ def insert_articles_with_embeddings(conn, articles_with_embeddings: List[Dict[st
                 # Insert into PostgreSQL
                 pg_cur.execute(sql.SQL("""
                     INSERT INTO {}.{} ({}, {}, {}, {})
-                    VALUES (%s::vector, %s, %s, %s);
+                    VALUES (%s, %s, %s, %s::vector);
                 """).format(
                     sql.Identifier(schema_name),
                     sql.Identifier(table_name),

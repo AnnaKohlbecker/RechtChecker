@@ -1,3 +1,4 @@
+from config.settings import LLM_MODEL
 from models.llm_client import LLMClient
 from agents.redis_agent import RedisAgent
 from agents.neo4j_agent import Neo4jAgent
@@ -123,14 +124,14 @@ class ManagerAgent:
         
         messages = [{"role": "user", "content": prompt_german}]
         response = self.llm_client.query_instruct(
-            model="meta-llama/Llama-3.2-1B-Instruct",
+            model=LLM_MODEL,
             messages=messages,
             max_tokens=50,
             temperature=0
         )
-        return response["choices"][0]["message"]["content"].strip().lower()
+        return response["choices"][0]["message"]["content"].strip()
 
-    def handle_query(self, question: str) -> str:
+    def handle_question(self, question: str) -> str:
         """
         Direct the question to the appropriate agent based on its classification.
 
@@ -147,31 +148,38 @@ class ManagerAgent:
         
         else:
             # Step 2: Classify the Question
-            response = "Response"
+            
             classification_response = self.classify_question(question)  # Returns {"classification": "<category_name>"}
             classification = ""
             try:
                 classification_data = json.loads(classification_response)
                 classification = classification_data.get("classification")
             except json.JSONDecodeError:
-                return f"{response}: Entschuldigung, ich konnte Ihre Frage nicht verstehen."  # Handle invalid JSON response
+                return "Response: Entschuldigung, ich konnte Ihre Frage nicht verstehen."  # Handle invalid JSON response
 
             # Step 3: Route to Appropriate Agent
+            response_agent = ""
             match classification:
                 case "neo4j":
-                    response = f"{response} from Neo4J: {self.neo4j_agent.handle_query(question)}"
+                    response_agent = " from Neo4J"
+                    response = self.neo4j_agent.handle_question(question)
                 case "mongodb":
-                    response = f"{response} from MongoDB: {self.mongodb_agent.handle_query(question)}"
+                    response_agent = " from MongoDB"
+                    response = self.mongodb_agent.handle_question(question)
                 case "minio":
-                    response = f"{response} from MinIO: {self.minio_agent.handle_query(question)}"
+                    response_agent = " from MinIO"
+                    response = self.minio_agent.handle_question(question)
                 case "postgres":
-                    response = f"{response} from Postgres: {self.postgres_agent.handle_query(question)}"
+                    response_agent = " from PostgreSQL"
+                    response = self.postgres_agent.handle_question(question)
                 case "none":
-                    response = f"{response}: Entschuldigung, diese Frage gehört nicht zu meinem Anwendungsbereich."
+                    response = "Entschuldigung, diese Frage gehört nicht zu meinem Anwendungsbereich."
                 case _:
-                    response = f"{response}: Entschuldigung, ich konnte Ihre Frage nicht verstehen."
-                
+                    response = "Entschuldigung, ich konnte Ihre Frage nicht verstehen."
+
             self.redis_agent.store_cache(question, response)
+            
+            response = f"Response{response_agent}: " + response
             
             return response
     

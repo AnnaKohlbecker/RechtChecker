@@ -5,12 +5,12 @@ import json
 from typing import List, Dict
 
 
-def generate_embedding(text: json, embedding_model: str, value_names: list[str]) -> Sequence[float]:
+def generate_embedding(content: json, embedding_model: str) -> Sequence[float]:
     """
     Generate an embedding for the given text using the specified embedding model.
     """
     try:
-        embeddings = ollama.embeddings(model=embedding_model, prompt=text)["embedding"]
+        embeddings = ollama.embeddings(model=embedding_model, prompt=content)["embedding"]
         return embeddings
     except Exception as e:
         print(f"Error generating embedding: {e}")
@@ -34,7 +34,7 @@ def generate_articles_with_embeddings(data_path: str, embedding_path: str, embed
 
     articles_with_embeddings = []
     for article in articles:
-        embedding = generate_embedding(article[value_names['content']], embedding_model, value_names)
+        embedding = generate_embedding(content=article[value_names['content']], embedding_model=embedding_model)
         if embedding:
             articles_with_embeddings.append({
                 value_names['article_number']: article[value_names['article_number']],

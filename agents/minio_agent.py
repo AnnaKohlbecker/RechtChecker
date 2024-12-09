@@ -1,5 +1,5 @@
 class MinIOAgent:
-    def handle_query(self, question: str) -> str:
+    def handle_question(self, question: str) -> str:
         """
         Placeholder for MinIO Agent query handling.
 

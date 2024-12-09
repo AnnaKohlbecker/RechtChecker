@@ -59,4 +59,4 @@ class RedisAgent:
         Clear all entries in the Redis cache.
         """
         self.client.flushdb()
-        print("[Redis cache cleared]\n\n")
+        print("Redis cache cleared.\n\n")

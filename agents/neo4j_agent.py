@@ -1,3 +1,4 @@
+from config.settings import LLM_MODEL
 import db.neo4j as neo4j
 from models.llm_client import LLMClient
 
@@ -31,7 +32,7 @@ class Neo4jAgent:
                 """
         messages = [{"role": "user", "content": prompt_german}]
         response = self.llm_client.query_instruct(
-            model="meta-llama/Llama-3.2-1B-Instruct",
+            model=LLM_MODEL,
             messages=messages,
             max_tokens=10,
             temperature=0
@@ -99,7 +100,7 @@ class Neo4jAgent:
         """
         messages = [{"role": "user", "content": prompt_german}]
         response = self.llm_client.query_instruct(
-            model="meta-llama/Llama-3.2-1B-Instruct",
+            model=LLM_MODEL,
             messages=messages,
             max_tokens=10,
             temperature=0
@@ -107,7 +108,7 @@ class Neo4jAgent:
         return response["choices"][0]["message"]["content"].strip().lower()
 
 
-    def handle_query(self, question: str) -> str:
+    def handle_question(self, question: str) -> str:
         response = ""
         article_number = self.get_article_number(question)
         question_type = self.get_question_type(question)
