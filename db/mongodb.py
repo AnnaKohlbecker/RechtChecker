@@ -3,7 +3,6 @@ from config.settings import (
     MONGO_HOST,
     MONGO_PORT,
     MONGO_DB,
-    MONGO_AUTH_SOURCE,
     MONGO_COLLECTION,
     MONGO_DB_USER,
     MONGO_DB_PASSWORD,
@@ -19,8 +18,7 @@ def initialize_mongodb():
     try:
         # Include username and password in the MongoDB URI
         mongo_uri = (
-            f"mongodb://{MONGO_DB_USER}:{MONGO_DB_PASSWORD}@{MONGO_HOST}:{MONGO_PORT}/"
-            f"?authSource={MONGO_AUTH_SOURCE}"
+            f"mongodb://{MONGO_DB_USER}:{MONGO_DB_PASSWORD}@{MONGO_HOST}:{MONGO_PORT}"
         )
         client = MongoClient(mongo_uri)
         db = client[MONGO_DB]
