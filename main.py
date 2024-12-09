@@ -64,19 +64,19 @@ def start_rechtchecker(reset_dbs, clear_cache):
         "Mein Arbeitgeber verlangt Überstunden, die ich nicht leisten möchte. Welche Rechte habe ich?",
         "Ich werde wegen meiner Religion benachteiligt. Was sagt das Grundgesetz dazu?",
         "Mein Chef verlangt von mir, gegen meine moralischen Überzeugungen zu handeln. Was kann ich tun?",
-        "Darf mein Arbeitgeber mich ohne Vorwarnung entlassen?",
-        "Mein Arbeitgeber überprüft meine privaten Nachrichten. Ist das erlaubt?",
-        "Ein Kollege verbreitet Unwahrheiten über mich. Kann ich mich rechtlich dagegen wehren?",
+        # "Darf mein Arbeitgeber mich ohne Vorwarnung entlassen?",
+        # "Mein Arbeitgeber überprüft meine privaten Nachrichten. Ist das erlaubt?",
+        # "Ein Kollege verbreitet Unwahrheiten über mich. Kann ich mich rechtlich dagegen wehren?",
 
         # None
         "Was ist das Wetter morgen in Paris?",
         "Wie heißt die Mutter von Kevin?",
         "Wie alt bist du?",
         "Balabalabalabalabalba?",
-        "No",
-        "Wie viele Kilometer sind es von Berlin nach München?",
-        "Wann wurde das erste Auto erfunden?",
-        "Kannst du mir ein Rezept für Apfelkuchen geben?",
+        # "No",
+        # "Wie viele Kilometer sind es von Berlin nach München?",
+        # "Wann wurde das erste Auto erfunden?",
+        # "Kannst du mir ein Rezept für Apfelkuchen geben?",
     
         # # Redis
         # "Ich werde auf der Arbeit gezwungen etwas zu tun, was ich nicht möchte. Habe ich Recht?",
@@ -143,9 +143,9 @@ def start_rechtchecker(reset_dbs, clear_cache):
 
     # Process each question
     for question in questions:
-        print(f"Question: {question}")
+        print(f"\n\n***Question***: {question}")
         response = manager_agent.handle_question(question)
-        print(f"{response}\n")
+        print(f"\n***Response***: {response}")
             
 def main(): 
     initialize_docker_and_containers()

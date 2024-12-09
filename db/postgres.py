@@ -71,7 +71,6 @@ def insert_articles_with_embeddings(conn, articles_with_embeddings: List[Dict[st
         return
 
     try:
-        print(f"Inserting embeddings into PostgreSQL table '{schema_name}.{table_name}'...")
         with conn.cursor() as pg_cur:
             for article in articles_with_embeddings:
                 # Insert into PostgreSQL

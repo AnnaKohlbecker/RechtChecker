@@ -68,6 +68,8 @@ class PostgresAgent:
             # Find the most similar articles
             response = self.find_similar(question_embedding, top_n=3)
             
+            response_details = response.split('\n')[0]
+            
             # Modify the response to match the users question
             prompt = f"""
             Du bist ein Experte für das Grundgesetz und hilfst dabei, Benutzerfragen zu beantworten. 
@@ -79,7 +81,7 @@ class PostgresAgent:
             
             Benutzerfrage: "{question}"
             
-            Deine Antwort sollte klar und präzise sein und sich nur auf den gegebenen Artikeltext beziehen.
+            Deine Antwort sollte klar und präzise sein und sich nur auf den gegebenen Artikeltext beziehen. Wiederhole nicht die Frage.
             """
             messages = [{"role": "user", "content": prompt}]
             response = self.llm_client.query_instruct(
@@ -87,7 +89,9 @@ class PostgresAgent:
                 messages=messages,
                 max_tokens=500,
                 temperature=0.7
-            )["choices"][0]["message"]["content"].strip()
+            )["choices"][0]["message"]["content"].strip().replace("\n\n", "\n")
+            
+            response = response + f" [{response_details}]"
             
             return response
 

@@ -144,7 +144,7 @@ class ManagerAgent:
         # Step 1: Check Redis Cache
         cached_response = self.redis_agent.check_cache(question)
         if cached_response is not None:
-            return f"Cached Response from Redis: [{cached_response}]"
+            return f"Cached from Redis: {cached_response}"
         
         else:
             # Step 2: Classify the Question
@@ -155,22 +155,22 @@ class ManagerAgent:
                 classification_data = json.loads(classification_response)
                 classification = classification_data.get("classification")
             except json.JSONDecodeError:
-                return "Response: Entschuldigung, ich konnte Ihre Frage nicht verstehen."  # Handle invalid JSON response
+                return "Entschuldigung, ich konnte Ihre Frage nicht verstehen."  # Handle invalid JSON response
 
             # Step 3: Route to Appropriate Agent
             response_agent = ""
             match classification:
                 case "neo4j":
-                    response_agent = " from Neo4J"
+                    response_agent = "From Neo4J: "
                     response = self.neo4j_agent.handle_question(question)
                 case "mongodb":
-                    response_agent = " from MongoDB"
+                    response_agent = "From MongoDB: "
                     response = self.mongodb_agent.handle_question(question)
                 case "minio":
-                    response_agent = " from MinIO"
+                    response_agent = "From MinIO: "
                     response = self.minio_agent.handle_question(question)
                 case "postgres":
-                    response_agent = " from PostgreSQL"
+                    response_agent = "From PostgreSQL: "
                     response = self.postgres_agent.handle_question(question)
                 case "none":
                     response = "Entschuldigung, diese Frage gehört nicht zu meinem Anwendungsbereich."
@@ -179,6 +179,6 @@ class ManagerAgent:
 
             self.redis_agent.store_cache(question, response)
             
-            response = f"Response{response_agent}: " + response
+            response = response_agent + response
             
             return response
