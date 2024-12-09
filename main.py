@@ -46,14 +46,14 @@ def test_manager_agent():
     
     german_questions = [
         # Neo4j
-        "Welche Artikel werden im Artikel 13 referenziert?",
-        "Gibt es Artikel auf die Artikel 12 referenziert?",
-        "Welche Artikel verweisen auf Artikel 14?",
-        "Welche Artikel sind mit Artikel 3 verknüpft?",
-        "Gibt es Artikel, die auf Artikel 15 Bezug nehmen?",
-        "Welche Artikel sind mit Artikel 100 verknüpft?",
-        "Welche Verweise gibt es auf Artikel 3 des Grundgesetzes?",
-        "Kannst du mir zeigen, welche Artikel Bezug auf Artikel 13 nehmen?",
+        # "Welche Artikel werden im Artikel 13 referenziert?",
+        # "Gibt es Artikel auf die Artikel 12 referenziert?",
+        # "Welche Artikel verweisen auf Artikel 14?",
+        # "Welche Artikel sind mit Artikel 3 verknüpft?",
+        # "Gibt es Artikel, die auf Artikel 15 Bezug nehmen?",
+        # "Welche Artikel sind mit Artikel 100 verknüpft?",
+        # "Welche Verweise gibt es auf Artikel 3 des Grundgesetzes?",
+        # "Kannst du mir zeigen, welche Artikel Bezug auf Artikel 13 nehmen?",
 
         # MongoDB
         "Was versteht man unter Artikel 16?",

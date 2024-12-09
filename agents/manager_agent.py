@@ -86,12 +86,21 @@ class ManagerAgent:
             - "Welche Artikel verweisen auf Artikel 9?" -> neo4j
             - "Welche Artikel verweisen auf Artikel 12?" -> neo4j
 
-        - **"mongodb"**: Für Anfragen zur **Zusammenfassung**, **Erklärung** oder **Interpretation** eines bestimmten Artikels. Diese Fragen fragen direkt nach der Bedeutung oder einem Überblick über einen Artikel. Achte auf Phrasen wie:
+        - **"mongodb"**: Für Anfragen zur **Zusammenfassung**, **Erklärung**, **Bedeutung** oder **Interpretation** eines bestimmten Artikels. 
+        Diese Fragen fragen direkt nach der Bedeutung oder einem Überblick über einen Artikel. Achte auf Phrasen wie:
         - "Was besagt Artikel X?"
         - "Fass mir bitte Artikel X zusammen."
+        - "Was steht im Artikel X drin?"
+        - "Was bedeutet Artikel X?"
+        - "Erkläre mir Artikel X."
         Beispiele:
             - "Was versteht man unter Artikel 16?" -> mongodb
             - "Fass mir bitte Artikel 124 aus dem Grundgesetz zusammen." -> mongodb
+            - "Erkläre mir Artikel 5 des Grundgesetzes." -> mongodb
+            - "Was bedeutet Artikel 11 im Grundgesetz?" -> mongodb
+            - "Erkläre den Inhalt von Artikel 13." -> mongodb
+            - "Kannst du mir eine kurze Zusammenfassung von Artikel 4 geben?" -> mongodb
+
 
         - **"minio"**: Für Anfragen nach **PDF-Dokumenten**. Achte auf Phrasen wie:
         - "Gib mir Artikel X als PDF."
@@ -100,7 +109,10 @@ class ManagerAgent:
             - "Gib mir Artikel 3 als PDF." -> minio
             - "Lade Artikel 7 als PDF herunter." -> minio
 
-        - **"postgres"**: Für Fragen nach **allgemeiner rechtlicher Beratung** oder der Interpretation von Rechten, die sich nicht auf bestimmte Artikel beziehen. Diese Fragen beschreiben oft Szenarien und fragen nach rechtlicher Klärung. Achte auf Phrasen wie:
+        - **"postgres"**: Für Fragen nach **allgemeiner rechtlicher Beratung** oder der Interpretation von Rechten, die sich nicht auf bestimmte Artikel beziehen. 
+        Diese Fragen beschreiben oft Szenarien und fragen nach rechtlicher Klärung. 
+        WICHTIG: **Fragen nach Zusammenfassungen, Erklärungen, Bedeutungen usw. sind nicht teil von postgres, sondern mongodb.**
+        Achte auf Phrasen wie:
         - "Habe ich das Recht, ..."
         - "Was sind meine Rechte?"
         Beispiele:
