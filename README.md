@@ -80,16 +80,10 @@ git clone https://github.com/AnnaKohlbecker/RechtChecker.git
    pip install -r requirements.txt
    ```
 
-3. Start Docker Desktop
-
-4. Run Docker File
-
-   ```
-   docker-compose down -v
-   docker-compose up -d
-   docker ps
-   ```
-
 ## Run
 
 Run `main.py`
+
+## Problems with Docker
+
+Quit Docker Desktop
