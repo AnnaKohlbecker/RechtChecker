@@ -1,5 +1,5 @@
 from config.settings import LLM_MODEL
-from initialization import initialize_data, initialize_dbs, initialize_docker_and_containers
+from initialization import initialize_data, initialize_docker_and_containers
 from agents.manager_agent import ManagerAgent
 
 def test_instruct_model(llm_client, query):
@@ -29,11 +29,9 @@ def test_chat_model(llm_client, query):
     except RuntimeError as e:
         print(e)
         
-def start_rechtchecker():
-    manager_agent = ManagerAgent()
-    
-    #Clear Redis cache
-    manager_agent.clear_cache()
+def start_rechtchecker(reset_dbs, clear_cache):
+    print("\n*** Start Rechtchecker ***")
+    manager_agent = ManagerAgent(reset_dbs=reset_dbs, clear_cache=clear_cache)
     
     german_questions = [
         # # Neo4j
@@ -151,9 +149,8 @@ def start_rechtchecker():
             
 def main(): 
     initialize_docker_and_containers()
-    data_path = initialize_data()
-    initialize_dbs(reset=False, data_path=data_path)
-    start_rechtchecker()
+    initialize_data()
+    start_rechtchecker(reset_dbs=True, clear_cache=True)
     
 if __name__ == "__main__":
     main()

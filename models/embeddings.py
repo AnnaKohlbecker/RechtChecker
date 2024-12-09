@@ -22,7 +22,6 @@ def generate_articles_with_embeddings(data_path: str, embedding_path: str, embed
     """
     # Check if the embedding file exists and is not empty
     if os.path.exists(embedding_path) and os.path.getsize(embedding_path) > 0:
-        print(f"Embedding file found at {embedding_path}. Loading existing embeddings...")
         with open(embedding_path, "r", encoding="utf-8") as file:
             articles_with_embeddings = json.load(file)
         return articles_with_embeddings

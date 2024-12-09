@@ -4,7 +4,7 @@ from models.llm_client import LLMClient
 
 
 class Neo4jAgent:
-    def __init__(self):
+    def __init__(self, reset):
         self.llm_client = LLMClient()
         self.session = neo4j.initialize_neo4j()
 

@@ -7,6 +7,7 @@ load_dotenv()
 MONGO_HOST = os.getenv("MONGO_HOST")
 MONGO_PORT = os.getenv("MONGO_PORT")
 MONGO_DB = os.getenv("MONGO_DB")
+MONGO_COLLECTION = os.getenv("MONGO_COLLECTION")
 MONGO_AUTH_SOURCE = os.getenv("MONGO_AUTH_SOURCE")
 MONGO_DB_USER = os.getenv("MONGO_DB_USER")
 MONGO_DB_PASSWORD = os.getenv("MONGO_DB_PASSWORD")
@@ -46,3 +47,12 @@ EMBEDDING_MODEL = "mxbai-embed-large:latest"
 
 JSON_PATH = os.getenv("JSON_PATH")
 STRUCTURED_JSON_PATH = os.getenv("STRUCTURED_JSON_PATH")
+
+# Data Paths
+RAW_DATA_PATH = "data/GG.txt"
+CHUNKED_DATA_PATH = "data/GG_chunks.json"
+STRUCTURED_DATA_PATH = "data/GG_structured.json"
+EMBEDDING_PATH = "data/articles_with_embeddings.json"
+
+# Reset
+RESET_DBS = True

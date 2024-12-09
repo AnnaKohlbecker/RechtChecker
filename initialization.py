@@ -14,7 +14,7 @@ from minio import Minio
 from dotenv import load_dotenv
 import os
 import redis
-from config.settings import EMBEDDING_MODEL
+from config.settings import CHUNKED_DATA_PATH, EMBEDDING_MODEL, RAW_DATA_PATH, STRUCTURED_DATA_PATH
 from utils.docker_utils import start_docker
 from db.postgres import initialize_postgresql
 from db.mongodb import initialize_mongodb
@@ -56,23 +56,10 @@ def initialize_docker_and_containers():
     
 def initialize_data():
     print("\n*** Initialize Data ***")
-    raw_data_path = "data/GG.txt"
-    chunked_data_path = "data/GG_chunks.json"
-    structured_data_path = "data/GG_structured.json"
     delimiter = "GG Art"
-    if not os.path.exists(chunked_data_path):
-        chunk_text_delimiter(input_path=raw_data_path, output_path=chunked_data_path, delimiter=delimiter)
-    if not os.path.exists(structured_data_path):
-        preprocess_articles(input_path=chunked_data_path, output_path=structured_data_path)
+    if not os.path.exists(CHUNKED_DATA_PATH):
+        chunk_text_delimiter(input_path=RAW_DATA_PATH, output_path=CHUNKED_DATA_PATH, delimiter=delimiter)
+    if not os.path.exists(STRUCTURED_DATA_PATH):
+        preprocess_articles(input_path=CHUNKED_DATA_PATH, output_path=STRUCTURED_DATA_PATH)
     else:
-        print("Data initialized.")
-    return structured_data_path
-    
-def initialize_dbs(reset, data_path):
-    print("\n*** Initialize Databases ***")
-    # Initialize Databases (Postgres, MongoDB, Redis, MinIO)
-    # redis_conn = initialize_redis()
-    embedding_path = "data/articles_with_embeddings.json"
-    initialize_postgresql(reset=reset, data_path=data_path, embedding_model=EMBEDDING_MODEL, embedding_path=embedding_path)
-    # mongo_db = initialize_mongodb()
-    # minio_conn = initialize_minio()
+        print("Data initialized.")    

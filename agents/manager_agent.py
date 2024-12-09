@@ -8,16 +8,16 @@ from agents.postgres_agent import PostgresAgent
 import json
 
 class ManagerAgent:
-    def __init__(self):
+    def __init__(self, reset_dbs, clear_cache):
         """
         Initialize the Manager Agent with all sub-agents.
         """
         self.llm_client = LLMClient()  # Uses the instruct model
-        self.redis_agent = RedisAgent()
-        self.neo4j_agent = Neo4jAgent()
+        self.redis_agent = RedisAgent(clear_cache=clear_cache)
+        self.neo4j_agent = Neo4jAgent(reset=reset_dbs)
         self.mongodb_agent = MongoDBAgent()
         self.minio_agent = MinIOAgent()
-        self.postgres_agent = PostgresAgent()
+        self.postgres_agent = PostgresAgent(reset=reset_dbs)
 
     def classify_question(self, question: str) -> str:
         """
@@ -182,9 +182,3 @@ class ManagerAgent:
             response = f"Response{response_agent}: " + response
             
             return response
-    
-    def clear_cache(self):
-        """
-        Clear all cached responses from the Redis database.
-        """
-        self.redis_agent.clear_cache()

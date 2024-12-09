@@ -1,23 +1,17 @@
 import psycopg2
 from psycopg2 import sql
-from config.settings import EMBEDDING_MODEL, LLM_MODEL, PG_HOST, PG_PORT, PG_USER, PG_PASSWORD, PG_DB, PG_TABLE, PG_SCHEMA
+from config.settings import EMBEDDING_MODEL, PG_TABLE, PG_SCHEMA, RESET_DBS
+from db.postgres import initialize_postgresql
 from models.embeddings import generate_embedding
 from models.llm_client import LLMClient
 
 class PostgresAgent:
-    def __init__(self):
+    def __init__(self, reset):
         """
         Initialize the Postgres Agent with a connection to the PostgreSQL database.
         """
-        self.conn = psycopg2.connect(
-            dbname=PG_DB,
-            user=PG_USER,
-            password=PG_PASSWORD,
-            host=PG_HOST,
-            port=PG_PORT
-        )
-        self.conn.autocommit = True
         self.llm_client = LLMClient()
+        self.conn = initialize_postgresql(reset=reset)
 
     def find_similar(self, question_embedding, top_n=1):
         """

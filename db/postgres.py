@@ -1,10 +1,10 @@
 from typing import Dict, List, Sequence
 import psycopg2
 from psycopg2 import sql
-from config.settings import PG_HOST, PG_PORT, PG_USER, PG_PASSWORD, PG_DB, PG_TABLE, PG_SCHEMA
+from config.settings import EMBEDDING_MODEL, EMBEDDING_PATH, PG_HOST, PG_PORT, PG_USER, PG_PASSWORD, PG_DB, PG_TABLE, PG_SCHEMA, STRUCTURED_DATA_PATH
 from models.embeddings import generate_articles_with_embeddings
 
-def initialize_postgresql(reset, data_path, embedding_model, embedding_path):
+def initialize_postgresql(reset):
     try:
         # Connect to the target database
         with psycopg2.connect(
@@ -47,15 +47,15 @@ def initialize_postgresql(reset, data_path, embedding_model, embedding_path):
                         """
                     ))
                     
-                    print(f"Schema '{PG_SCHEMA}' and table '{PG_TABLE}' initialized with vector dimensions {embedding_dim}.")
-                    
                     # Process and insert embeddings
                     articles_with_embeddings = generate_articles_with_embeddings(
-                        data_path=data_path, embedding_path=embedding_path, embedding_model=embedding_model, value_names=value_names
+                        data_path=STRUCTURED_DATA_PATH, embedding_path=EMBEDDING_PATH, embedding_model=EMBEDDING_MODEL, value_names=value_names
                     )
                     insert_articles_with_embeddings(conn=conn, articles_with_embeddings=articles_with_embeddings, table_name=PG_TABLE, schema_name=PG_SCHEMA, value_names=value_names)
             
         print("Postgres initialized.")
+        
+        return conn
                     
     except psycopg2.Error as e:
         print(f"Database error: {e}")
@@ -87,6 +87,5 @@ def insert_articles_with_embeddings(conn, articles_with_embeddings: List[Dict[st
                     sql.Identifier(value_names['embedding']),
                 ), (article.get(value_names['article_number']), article.get(value_names['title']), article.get(value_names['content']), article.get(value_names['embedding'])))
             conn.commit()
-        print("Articles inserted successfully.")
     except Exception as e:
         print(f"Error inserting articles into PostgreSQL: {e}")

@@ -1,9 +1,8 @@
-import redis
 import hashlib
-from config.settings import REDIS_HOST, REDIS_PORT
+from db.redis import initialize_redis
 
 class RedisAgent:
-    def __init__(self, host=REDIS_HOST, port=REDIS_PORT, db=0):
+    def __init__(self, clear_cache):
         """
         Initialize the RedisAgent with connection details.
         
@@ -12,7 +11,10 @@ class RedisAgent:
             port (int): Redis server port.
             db (int): Redis database index.
         """
-        self.client = redis.StrictRedis(host=host, port=port, db=db, decode_responses=True)
+        self.client = initialize_redis()
+        if clear_cache:
+            self.clear_cache()
+        
     
     def _generate_cache_key(self, question: str) -> str:
         """
