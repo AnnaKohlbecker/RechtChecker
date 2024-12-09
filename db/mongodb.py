@@ -17,10 +17,16 @@ def initialize_mongodb():
     """
     try:
         # Include username and password in the MongoDB URI
-        mongo_uri = (
-            f"mongodb://{MONGO_DB_USER}:{MONGO_DB_PASSWORD}@{MONGO_HOST}:{MONGO_PORT}"
-        )
-        client = MongoClient(mongo_uri)
+        # mongo_uri = (
+        #     f"mongodb://{MONGO_DB_USER}:{MONGO_DB_PASSWORD}@{MONGO_HOST}:{MONGO_PORT}"
+        # )
+        # client = MongoClient(mongo_uri)
+        
+        client = MongoClient(host=MONGO_HOST,
+                     port=MONGO_PORT, 
+                     username=MONGO_DB_USER, 
+                     password=MONGO_DB_PASSWORD,
+                    authSource="admin")
         db = client[MONGO_DB]
         print("MongoDB initialized successfully.")
         return db
