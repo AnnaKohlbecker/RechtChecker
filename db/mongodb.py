@@ -20,7 +20,11 @@ def initialize_mongodb():
         # mongo_uri = (
         #     f"mongodb://{MONGO_DB_USER}:{MONGO_DB_PASSWORD}@{MONGO_HOST}:{MONGO_PORT}"
         # )
+        
+        mongo_uri_anna = f"mongodb://{MONGO_HOST}:{MONGO_PORT}"
+        mongo_uri_anna_v2 = (f"mongodb://{MONGO_HOST}:{MONGO_PORT}")
         # client = MongoClient(mongo_uri)
+        
         
         client = MongoClient(host=MONGO_HOST,
                      port=MONGO_PORT, 
