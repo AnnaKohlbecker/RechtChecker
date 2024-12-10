@@ -4,8 +4,6 @@ from config.settings import (
     MONGO_PORT,
     MONGO_DB,
     MONGO_COLLECTION,
-    MONGO_DB_USER,
-    MONGO_DB_PASSWORD,
     STRUCTURED_JSON_PATH,
 )
 import json
@@ -16,21 +14,7 @@ def initialize_mongodb():
     Initialize MongoDB connection and return the database object.
     """
     try:
-        # Include username and password in the MongoDB URI
-        # mongo_uri = (
-        #     f"mongodb://{MONGO_DB_USER}:{MONGO_DB_PASSWORD}@{MONGO_HOST}:{MONGO_PORT}"
-        # )
-        
-        mongo_uri_anna = f"mongodb://{MONGO_HOST}:{MONGO_PORT}"
-        mongo_uri_anna_v2 = (f"mongodb://{MONGO_HOST}:{MONGO_PORT}")
-        # client = MongoClient(mongo_uri)
-        
-        
-        client = MongoClient(host=MONGO_HOST,
-                     port=MONGO_PORT, 
-                     username=MONGO_DB_USER, 
-                     password=MONGO_DB_PASSWORD,
-                    authSource="admin")
+        client = MongoClient(f"mongodb://{MONGO_HOST}:{MONGO_PORT}")
         db = client[MONGO_DB]
         print("MongoDB initialized successfully.")
         return db

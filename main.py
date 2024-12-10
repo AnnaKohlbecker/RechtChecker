@@ -220,7 +220,7 @@ if __name__ == "__main__":
     
 #     # Initialize the Minio client
 #     minio_client = Minio(
-#         endpoint, access_key=MINIO_ACCESS_KEY, secret_key=MINIO_SECRET_KEY, secure=False
+#         endpoint, access_key=MINIO_USER, secret_key=MINIO_PASSWORD, secure=False
 #     )
 #     print("MinIO initialized successfully.")
 #     return minio_client
