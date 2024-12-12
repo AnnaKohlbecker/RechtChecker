@@ -35,21 +35,21 @@ def start_rechtchecker(reset_dbs, clear_cache):
     
     german_questions = [
         # Neo4j
-        # "Welche Artikel werden im Artikel 13 referenziert?",
-        # "Gibt es Artikel auf die Artikel 12 referenziert?",
+         "Welche Artikel werden im Artikel 13 referenziert?",
+         "Gibt es Artikel auf die Artikel 12 referenziert?",
         # "Welche Artikel verweisen auf Artikel 14?",
         # "Welche Artikel sind mit Artikel 3 verknüpft?",
-        # "Gibt es Artikel, die auf Artikel 15 Bezug nehmen?",
-        # "Welche Artikel sind mit Artikel 100 verknüpft?",
+         "Gibt es Artikel, die auf Artikel 15 Bezug nehmen?",
+         "Welche Artikel sind mit Artikel 100 verknüpft?",
         # "Welche Verweise gibt es auf Artikel 3 des Grundgesetzes?",
         # "Kannst du mir zeigen, welche Artikel Bezug auf Artikel 13 nehmen?",
 
         # # MongoDB
-        # "Was versteht man unter Artikel 16?",
-        # "Erkläre mir Artikel 5 des Grundgesetzes.",
+         "Was versteht man unter Artikel 16?",
+         "Erkläre mir Artikel 5 des Grundgesetzes.",
         # "Fass Artikel 10 aus dem Grundgesetz zusammen.",
         # "Was bedeutet Artikel 11 im Grundgesetz?",
-        # "Erkläre den Inhalt von Artikel 13.",
+         "Erkläre den Inhalt von Artikel 13.",
         # "Kannst du mir eine kurze Zusammenfassung von Artikel 4 geben?",
 
         # # MinIO
