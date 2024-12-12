@@ -27,18 +27,8 @@ NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
 # MinIO
 MINIO_HOST = os.getenv("MINIO_HOST")
 MINIO_PORT = os.getenv("MINIO_PORT")
-MINIO_ACCESS_KEY = os.getenv("MINIO_ACCESS_KEY")
-MINIO_SECRET_KEY = os.getenv("MINIO_SECRET_KEY")
-
-# Redis
-REDIS_HOST = os.getenv("REDIS_HOST")
-REDIS_PORT = os.getenv("REDIS_PORT")
-
-# LLM
-LLM_MODEL = "meta-llama/Llama-3.2-1B-Instruct"
-# MinIO
-MINIO_HOST = os.getenv("MINIO_HOST")
-MINIO_PORT = os.getenv("MINIO_PORT")
+#MINIO_ACCESS_KEY = os.getenv("MINIO_ACCESS_KEY")
+#MINIO_SECRET_KEY = os.getenv("MINIO_SECRET_KEY")
 MINIO_USER = os.getenv("MINIO_USER")
 MINIO_PASSWORD = os.getenv("MINIO_PASSWORD")
 
@@ -46,11 +36,14 @@ MINIO_PASSWORD = os.getenv("MINIO_PASSWORD")
 REDIS_HOST = os.getenv("REDIS_HOST")
 REDIS_PORT = os.getenv("REDIS_PORT")
 
-HF_API_TOKEN = os.getenv("HF_API_TOKEN")
-# HF_API_EMBEDDINGS_URL = os.getenv("HF_API_EMBEDDINGS_URL")
+# LLM
+LLM_MODEL = "meta-llama/Llama-3.2-1B-Instruct"
 
 # Embedding Model
 EMBEDDING_MODEL = "mxbai-embed-large:latest"
+
+HF_API_TOKEN = os.getenv("HF_API_TOKEN")
+# HF_API_EMBEDDINGS_URL = os.getenv("HF_API_EMBEDDINGS_URL")
 
 JSON_PATH = os.getenv("JSON_PATH")
 STRUCTURED_JSON_PATH = os.getenv("STRUCTURED_JSON_PATH")
