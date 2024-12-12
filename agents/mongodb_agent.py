@@ -11,8 +11,8 @@ class MongoDBAgent:
         
         # Ensure data is loaded into MongoDB
         if self.db != None:
-            mongodb.insert_data(self.db)
-            mongodb.create_index(self.db)  # Create index after loading data
+            self.db = mongodb.insert_data(self.db)
+            self.db = mongodb.create_index(self.db)  # Create index after loading data
 
 
     def get_article_number(self, question: str) -> str:
@@ -56,7 +56,7 @@ class MongoDBAgent:
         )
         return response["choices"][0]["message"]["content"].strip().lower()
 
-    def handle_query(self, question: str) -> str:
+    def handle_question(self, question: str) -> str:
         """
         Handle the query by fetching and explaining the relevant article using the LLM.
 
