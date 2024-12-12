@@ -34,7 +34,7 @@ def start_rechtchecker(reset_dbs, clear_cache):
     manager_agent = ManagerAgent(reset_dbs=reset_dbs, clear_cache=clear_cache)
     
     german_questions = [
-        # # Neo4j
+        # Neo4j
         # "Welche Artikel werden im Artikel 13 referenziert?",
         # "Gibt es Artikel auf die Artikel 12 referenziert?",
         # "Welche Artikel verweisen auf Artikel 14?",
