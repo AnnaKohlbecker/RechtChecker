@@ -2,11 +2,11 @@ import json
 import os
 import re
 
-def chunk_text_delimiter(file_path, output_path, delimiter="GG Art"):
+def chunk_text_delimiter(input_path, output_path, delimiter):
     """
     Splits the text from the input file into chunks based on the specified delimiter and saves the chunks to a JSON file.
     
-    :param file_path: Path to the input text file.
+    :param input_path: Path to the input text file.
     :param output_path: Path to save the resulting chunks as a JSON file.
     :param delimiter: Delimiter string used to split the text.
     """
@@ -16,7 +16,7 @@ def chunk_text_delimiter(file_path, output_path, delimiter="GG Art"):
         return
 
     # Read the file content
-    with open(file_path, 'r', encoding='utf-8') as file:
+    with open(input_path, 'r', encoding='utf-8') as file:
         content = file.read()
 
     # Split content into chunks
