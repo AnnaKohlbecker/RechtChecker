@@ -21,7 +21,7 @@ def initialize_mongodb():
         # First attempt: standard connection string using environment variables
         client = MongoClient(f"mongodb://{MONGO_HOST}:{MONGO_PORT}")
         db = client[MONGO_DB]
-        print("MongoDB initialized successfully with default connection.")
+        print("MongoDB initialized.")
         return db
     except Exception as e:
         print(f"Default connection failed: {e}")
@@ -30,7 +30,7 @@ def initialize_mongodb():
             uri = f"mongodb://{MONGO_DB_USER}:{MONGO_DB_PASSWORD}@{MONGO_HOST}/?authSource={MONGO_DB_AUTH_SOURCE}&authMechanism=SCRAM-SHA-256"
             client = MongoClient(uri)
             db = client[MONGO_DB_AUTH_SOURCE]
-            print("MongoDB initialized successfully with URI-based connection.")
+            print("MongoDB initialized.")
             return db
         except Exception as e:
             print(f"URI-based connection failed: {e}")
@@ -89,11 +89,9 @@ def insert_data(db):
 
         # Clear existing data in the collection
         collection.delete_many({})
-        print("Cleared existing data from the collection.")
 
         # Insert new data
         collection.insert_many(data)
-        print("Data inserted successfully from the JSON file.")
         return db
     except Exception as e:
         print(f"Error inserting data into MongoDB: {e}")
@@ -105,9 +103,7 @@ def insert_data(db):
                 try:
                     collection = db[MONGO_COLLECTION]
                     collection.delete_many({})
-                    print("Cleared existing data from the collection (URI-based connection).")
                     collection.insert_many(data)
-                    print("Data inserted successfully from the JSON file (URI-based connection).")
                     return db
                 except Exception as uri_exception:
                     print(f"Failed to insert data even with URI-based connection: {uri_exception}")
@@ -126,7 +122,6 @@ def create_index(db):
         # Check existing indexes
         existing_indexes = collection.index_information()
         if "article_number_1" in existing_indexes:
-            print("Index on `article_number` already exists.")
             return db
 
         # Create a single-field index on article_number

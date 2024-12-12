@@ -150,7 +150,10 @@ def start_rechtchecker(reset_dbs, clear_cache):
 def main(): 
     initialize_docker_and_containers()
     initialize_data()
-    start_rechtchecker(reset_dbs=True, clear_cache=True)
+    try:
+        start_rechtchecker(reset_dbs=True, clear_cache=True)
+    except AttributeError:
+        print("\n\n\nAn error occurred while starting Rechtchecker. Run 'main.py' again.")
     
 if __name__ == "__main__":
     main()
