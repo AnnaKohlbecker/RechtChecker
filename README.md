@@ -6,6 +6,8 @@ This project involves developing a ChatBot designed to assist German citizens in
 
 ## Technical Overview
 
+![DB Architektur](images/DB_Architektur.png)
+
 The system operates through a multi-agent architecture where a "Manager Agent" coordinates interactions between the user and various specialized agents. Here's how it works:
 
 1. The **user** submits a question to the Manager Agent.
