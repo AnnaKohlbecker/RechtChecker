@@ -1,5 +1,5 @@
 import os
-from typing import Mapping, Sequence
+from typing import Sequence
 import ollama
 import json
 from typing import List, Dict
@@ -39,6 +39,7 @@ def generate_articles_with_embeddings(data_path: str, embedding_path: str, embed
                 value_names['article_number']: article[value_names['article_number']],
                 value_names['title']: article[value_names['title']],
                 value_names['content']: article[value_names['content']],
+                value_names['refs']: article['references'],
                 value_names['embedding']: embedding
             })
 
