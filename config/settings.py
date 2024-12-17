@@ -55,5 +55,8 @@ CHUNKED_DATA_PATH = "data/GG_chunks.json"
 STRUCTURED_DATA_PATH = "data/GG_structured.json"
 EMBEDDING_PATH = "data/articles_with_embeddings.json"
 
+# Download Path
+DOWNLOAD_PATH = os.getenv("DOWNLOAD_PATH")
+
 # Reset
 RESET_DBS = True
