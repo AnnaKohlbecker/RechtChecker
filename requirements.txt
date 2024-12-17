@@ -6,3 +6,4 @@ ollama==0.3.3
 minio==7.2.11
 redis==5.2.0
 huggingface-hub==0.26.3
+reportlab==4.2.5
