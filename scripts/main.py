@@ -1,5 +1,5 @@
 from config.settings import LLM_MODEL
-from initialization import initialize_data, initialize_docker_and_containers
+from scripts.initialization import initialize_data, initialize_docker_and_containers
 from agents.manager_agent import ManagerAgent
 
 def test_instruct_model(llm_client, query):
