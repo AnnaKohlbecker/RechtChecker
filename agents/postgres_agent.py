@@ -1,6 +1,5 @@
-import psycopg2
 from psycopg2 import sql
-from config.settings import EMBEDDING_MODEL, PG_TABLE, PG_SCHEMA, RESET_DBS
+from config.settings import EMBEDDING_MODEL, PG_TABLE, PG_SCHEMA
 from db.postgres import initialize_postgresql
 from models.embeddings import generate_embedding
 from models.llm_client import LLMClient
