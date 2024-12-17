@@ -10,6 +10,7 @@ export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [initializing, setInitializing] = useState<boolean>(true);
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const chatbotContent = `Hi!\nDo you have any question about the Basic German Law?`;
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -91,23 +92,21 @@ export default function Home() {
   useEffect(() => {
     const initializeChatbot = async () => {
       try {
-        const response = await fetch("/api/initialization");
-        if (!response.ok) throw new Error("Python function for initialization failed");
-        else console.log("Python function for initialization succeeded");
-  
-        setInitializing(false);
+        const response = await fetch("/api/initialization.ts");
+        if (!response.ok) {
+          throw new Error(response.status.toString());
+        }
         setMessages([
           {
             role: "assistant",
-            content: chatbotContent
-          }
+            content: chatbotContent,
+          },
         ]);
-      } catch (error) {
-        console.error("Error initializing chatbot:", error);
         setInitializing(false);
+      } catch (error : any) {
+        setErrorMessage(error.toString());
       }
     };
-  
     initializeChatbot();
   }, [chatbotContent]);
 
@@ -138,7 +137,14 @@ export default function Home() {
         <div className="flex-1 overflow-auto sm:px-10 pb-4 sm:pb-10">
           <div className="max-w-[800px] mx-auto mt-4 sm:mt-12">
           {initializing ? (
-              <div className="text-center text-lg font-bold">Initializing...</div>
+              errorMessage !== '' ? (
+                <>
+                  <div className="text-center text-lg font-bold">Initialization Error:</div>
+                  <div className="text-center text-lg">&quot;{errorMessage}&quot;</div>
+                </>
+              ) : (
+                <div className="text-center text-lg font-bold">Initializing...</div>
+              )
             ) : (
               <>
                 <Chat
