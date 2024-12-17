@@ -2,6 +2,7 @@ import { Chat } from "@/components/Chat/Chat";
 import { Footer } from "@/components/Layout/Footer";
 import { Navbar } from "@/components/Layout/Navbar";
 import { Message } from "@/types";
+import { NextApiRequest } from "next"
 import Head from "next/head";
 import { useEffect, useRef, useState } from "react";
 import { start } from "repl"
@@ -20,21 +21,29 @@ export default function Home() {
   };
 
   const handleSend = async (message: Message) => {
-    const updatedMessages = [...messages, message];
+    // const updatedMessages = [...messages, message];
 
-    setMessages(updatedMessages);
+    // setMessages(updatedMessages);
     setLoading(true);
 
-    const response = await fetch("/api/chat", {
+    // const response = await fetch("/api/chat", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify({
+    //     messages: updatedMessages
+    //   })
+    // });
+    const request: RequestInit = {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        messages: updatedMessages
-      })
-    });
+      body: JSON.stringify({ question: { role: "user", content: message.content } }),
+    };
 
+    const response = await fetch("/api/chat", request);
     if (!response.ok) {
       setLoading(false);
       throw new Error(response.statusText);
@@ -92,9 +101,9 @@ export default function Home() {
   useEffect(() => {
     const initializeChatbot = async () => {
       try {
-        const response = await fetch("/api/initialization.ts");
+        const response = await fetch("/api/initialization");
         if (!response.ok) {
-          throw new Error(response.status.toString());
+          throw new Error(response.statusText);
         }
         setMessages([
           {
