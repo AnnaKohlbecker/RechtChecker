@@ -190,8 +190,9 @@ class ManagerAgent:
                 case _:
                     response = "Entschuldigung, ich konnte Ihre Frage nicht verstehen."
 
-            uniform_response = response.lower().replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
-            self.redis_agent.store_cache(uniform_question, uniform_response)
+            if not classification == "minio":
+                uniform_response = response.lower().replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
+                self.redis_agent.store_cache(uniform_question, uniform_response)
             
             response = response_agent + response
             
