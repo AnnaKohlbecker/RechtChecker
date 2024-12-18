@@ -157,7 +157,7 @@ def main():
         message = start_rechtchecker(reset_dbs=True, clear_cache=False, question=question)
         response.update({"message": message})
     except Exception as e:
-        response.update({"message": str(e)})
+        response.update({"message": json.dumps(str(e).replace('"', '\\"').replace('\n', '\\n'))})
     print(json.dumps(response))
     
 if __name__ == "__main__":
