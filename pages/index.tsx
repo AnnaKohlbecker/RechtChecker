@@ -2,17 +2,15 @@ import { Chat } from "@/components/Chat/Chat";
 import { Footer } from "@/components/Layout/Footer";
 import { Navbar } from "@/components/Layout/Navbar";
 import { Message } from "@/types";
-import { NextApiRequest } from "next"
 import Head from "next/head";
 import { useEffect, useRef, useState } from "react";
-import { start } from "repl"
 
 export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [initializing, setInitializing] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const chatbotContent = `Hi!\nDo you have any question about the Basic German Law?`;
+  const chatbotContent = `Hallo! Hast du Fragen zum Grundgesetz?`;
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -21,26 +19,16 @@ export default function Home() {
   };
 
   const handleSend = async (message: Message) => {
-    // const updatedMessages = [...messages, message];
-
-    // setMessages(updatedMessages);
+    const updatedMessages = [...messages, message];
+    setMessages(updatedMessages);
     setLoading(true);
 
-    // const response = await fetch("/api/chat", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify({
-    //     messages: updatedMessages
-    //   })
-    // });
     const request: RequestInit = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ question: { role: "user", content: message.content } }),
+      body: JSON.stringify({ message: { role: "user", content: message.content} as Message} ),
     };
 
     const response = await fetch("/api/chat", request);
@@ -48,32 +36,26 @@ export default function Home() {
       setLoading(false);
       throw new Error(response.statusText);
     }
+    const responseData = await response.json();
+    const messageContent = responseData.message?.content;
 
-    const data = response.body;
-
-    if (!data) {
+    if (!messageContent) {
       return;
     }
 
     setLoading(false);
-
-    const reader = data.getReader();
-    const decoder = new TextDecoder();
     let done = false;
     let isFirst = true;
 
     while (!done) {
-      const { value, done: doneReading } = await reader.read();
-      done = doneReading;
-      const chunkValue = decoder.decode(value);
-
+      done = true;
       if (isFirst) {
         isFirst = false;
         setMessages((messages) => [
           ...messages,
           {
             role: "assistant",
-            content: chunkValue
+            content: messageContent
           }
         ]);
       } else {
@@ -81,7 +63,7 @@ export default function Home() {
           const lastMessage = messages[messages.length - 1];
           const updatedMessage = {
             ...lastMessage,
-            content: lastMessage.content + chunkValue
+            content: lastMessage.content + messageContent
           };
           return [...messages.slice(0, -1), updatedMessage];
         });
@@ -142,32 +124,32 @@ export default function Home() {
       </Head>
 
       <div className="flex flex-col h-screen">
-        <Navbar />
-        <div className="flex-1 overflow-auto sm:px-10 pb-4 sm:pb-10">
-          <div className="max-w-[800px] mx-auto mt-4 sm:mt-12">
+      <Navbar />
+      <div className="flex-1 flex items-center justify-center overflow-auto sm:px-10 pb-4 sm:pb-10">
+        <div className="max-w-[800px] w-full mx-auto">
           {initializing ? (
-              errorMessage !== '' ? (
-                <>
-                  <div className="text-center text-lg font-bold">Initialization Error:</div>
-                  <div className="text-center text-lg">&quot;{errorMessage}&quot;</div>
-                </>
-              ) : (
-                <div className="text-center text-lg font-bold">Initializing...</div>
-              )
-            ) : (
+            errorMessage !== '' ? (
               <>
-                <Chat
-                  messages={messages}
-                  loading={loading}
-                  onSend={handleSend}
-                  onReset={() => handleReset(chatbotContent)}
-                />
-                <div ref={messagesEndRef} />
+                <div className="text-center text-lg font-bold">Initialization Error:</div>
+                <div className="text-center text-lg">&quot;{errorMessage}&quot;</div>
               </>
-            )}
-          </div>
+            ) : (
+              <div className="text-center text-lg font-bold">Initializing...</div>
+            )
+          ) : (
+            <>
+              <Chat
+                messages={messages}
+                loading={loading}
+                onSend={handleSend}
+                onReset={() => handleReset(chatbotContent)}
+              />
+              <div ref={messagesEndRef} />
+            </>
+          )}
         </div>
-        <Footer />
+      </div>
+      <Footer />
       </div>
     </>
   );

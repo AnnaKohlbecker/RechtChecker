@@ -1,88 +1,56 @@
-// import { Message } from "@/types";
-// import { OpenAIStream } from "@/scripts/utils";
-
-// export const config = {
-//   runtime: "edge"
-// };
-
-// const handler = async (req: Request): Promise<Response> => {
-//   try {
-//     const { messages } = (await req.json()) as {
-//       messages: Message[];
-//     };
-
-//     const charLimit = 12000;
-//     let charCount = 0;
-//     let messagesToSend = [];
-
-//     for (let i = 0; i < messages.length; i++) {
-//       const message = messages[i];
-//       if (charCount + message.content.length > charLimit) {
-//         break;
-//       }
-//       charCount += message.content.length;
-//       messagesToSend.push(message);
-//     }
-
-//     const stream = await OpenAIStream(messagesToSend);
-
-//     return new Response(stream);
-//   } catch (error) {
-//     console.error(error);
-//     return new Response("Error", { status: 500 });
-//   }
-// };
-
-// export default handler;
-
 import { Message } from "@/types";
 import { spawn } from "child_process";
-import { NextApiRequest, NextApiResponse } from "next"
-
-export const config = {
-  runtime: "edge"
-};
+import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<NextApiResponse> => {
   const body = req.body;
-  const question  = body.question as Message;
+  const message: Message = body?.message || { role: "user", content: "Test" };
+  console.log(message.content);
 
   const pythonVersion = process.env.PYTHON_EXECUTABLE || "python3";
-  const pythonProcess = spawn(pythonVersion, ["./scripts/main.py", JSON.stringify(question)]);
+  const pythonProcess = spawn(pythonVersion, ["./scripts/main.py", message.content.toString()]);
 
   //show pythonprocess output
   pythonProcess.stdout.on("data", (data) => {
     console.log(`stdout: ${data}`);
   });
 
-  let result = "";
-  let error = "";
+  let output = "";
+  let errorOutput = "";
 
   // Listen for data output
   pythonProcess.stdout.on("data", (data) => {
-    result += data.toString(); // Accumulate standard output
+    output += data.toString(); // Accumulate standard output
   });
 
   // Listen for errors
   pythonProcess.stderr.on("data", (data) => {
-    error += data.toString(); // Accumulate error output
+    errorOutput += data.toString(); // Accumulate error output
   });
+
+  let response_message: Message = { role: "assistant", content: ""}
 
   // On process close
   pythonProcess.on("close", (code) => {
     if (code === 0) {
       // If successful, send the result back as JSON
       try {
-        const parsedResult = JSON.parse(result); // Parse the output if it's JSON
-        res.status(200).json(parsedResult);
+        const jsonMatch = output.match(/\{.*\}/); // Matches the first JSON object in the output
+        if (jsonMatch) {
+          const parsedContent = JSON.parse(jsonMatch[0]); // Parse the matched JSON string
+          response_message.content = parsedContent.message
+          res.status(200).json({message: response_message}); // Return only the JSON part
+        } else {
+          response_message.content = "No valid JSON found in output";
+          res.status(200).json({message: response_message});
+        }
       } catch (parseError) {
-        res.status(200).json({ output: result }); // Send raw output if not JSON
+        response_message.content = "Failed to parse JSON";
+        res.status(500).json({message: response_message});
       }
     } else {
-      res.status(500).json({
-        error: "Python script failed",
-        details: error || "Unknown error occurred",
-      });
+      response_message.content = "Python script failed: " + errorOutput;
+      res.status(500).json({message: response_message});
     }
   });
   return res;

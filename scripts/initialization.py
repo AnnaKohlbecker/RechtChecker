@@ -19,7 +19,6 @@ def main():
         response.update({"docker_and_data_status": "failed", "error": str(e)})
     
     response["docker_and_data_status"] = "success" if "failed" not in response.values() else "failed"
-    response["value"] = 42
     print(json.dumps(response))
 
 if __name__ == "__main__":

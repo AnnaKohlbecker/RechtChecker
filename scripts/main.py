@@ -1,7 +1,6 @@
 import json
 import sys
 from config.settings import LLM_MODEL
-from scripts.initialization import initialize_data, initialize_docker_and_containers
 from agents.manager_agent import ManagerAgent
 
 def test_instruct_model(llm_client, query):
@@ -151,17 +150,14 @@ def start_rechtchecker(reset_dbs, clear_cache, question):
     return manager_agent.handle_question(question)
             
 def main(): 
-    response = {}
-    if len(sys.argv) > 1:
-        question = json.loads(sys.argv[1])
+    response = {"message": "error"}
     try:
+        if len(sys.argv) > 1:
+            question = sys.argv[1]
         message = start_rechtchecker(reset_dbs=True, clear_cache=True, question=question)
-        response.update({"chatbot_status": "worked", "error": "", "message": message})
+        response.update({"message": message})
     except Exception as e:
-        response.update({"chatbot_status": "failed", "error": str(e), "message": message})
-    
-    response["chatbot_status"] = "success" if "failed" not in response.values() else "failed"
-    response["value"] = 42
+        response.update({"message": str(e)})
     print(json.dumps(response))
     
 if __name__ == "__main__":
