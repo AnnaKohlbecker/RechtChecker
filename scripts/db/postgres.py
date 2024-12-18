@@ -27,12 +27,6 @@ def initialize_postgresql(reset):
                             'refs': "refs",
                             'embedding': "embedding",
                         }
-                        # Generate a sample embedding to determine its dimensionality
-                        # sample_embedding = generate_embedding("test sample", embedding_model, value_names)
-                        # if not sample_embedding:
-                        #     raise ValueError("Failed to generate a sample embedding to determine vector dimensions.")
-                        # embedding_dim = len(sample_embedding)
-                        # print(f"Detected embedding dimensions: {embedding_dim}")
                         embedding_dim = 1024
 
                         # Create the table with dynamic embedding dimensions

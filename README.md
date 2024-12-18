@@ -58,7 +58,6 @@ The system operates through a multi-agent architecture where a "Manager Agent" c
 The chatbot leverages reliable legal documents as its data foundation:
 
 - **Grundgesetz** (Basic Law of Germany): [PDF](https://www.bundesregierung.de/resource/blob/974430/180722/b6c342e0e2f412d759a0a2a3af052a06/grundgesetz-data.pdf)
-- **Bürgerliches Gesetzbuch (BGB)** (German Civil Code): [PDF](https://www.gesetze-im-internet.de/bgb/BGB.pdf)
 
 This architecture ensures efficient, accurate, and structured responses to user queries about legal rights.
 
@@ -75,6 +74,8 @@ git clone https://github.com/AnnaKohlbecker/RechtChecker.git
    ```bash
    cp .env.example .env
    ```
+
+   Make sure to get HuggingFace API Token and also locate your python.exe to fill its path within the .env
 
 2. Install requirements
 
@@ -98,6 +99,11 @@ git clone https://github.com/AnnaKohlbecker/RechtChecker.git
 
 ## Run
 
+Before running the project, make sure your docker container is running to avoid any issues.
+Use the docker_compose.yml provided within this Repo, since it includes all images necessary.
+
 ```
 npm run dev
 ```
+
+Open [th](http://localhost:3001/) in your browser to access the Chatbot UI.
