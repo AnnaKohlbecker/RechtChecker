@@ -3,8 +3,7 @@ import { ScaleIcon } from "@heroicons/react/24/solid"; // Heroicon for "Law/Just
 
 export const Navbar: FC = () => {
   return (
-    <div className="relative flex flex-col bg-white py-2 px-2 sm:px-8 items-center justify-between">
-      {/* Content */}
+    <div className="relative flex flex-col bg-white py-4 items-center justify-between">
       <div className="flex items-center space-x-2 font-bold text-3xl">
         <ScaleIcon className="h-8 w-8 text-black" />
         <p>RechtChecker</p>

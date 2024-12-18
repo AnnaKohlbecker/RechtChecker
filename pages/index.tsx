@@ -118,34 +118,32 @@ export default function Home() {
           content="width=device-width, initial-scale=1"
         />
       </Head>
-
       <div className="flex flex-col h-screen">
-      <Navbar />
-      <div className="flex-1 flex items-center justify-center overflow-auto sm:px-10 pb-4 sm:pb-10">
-        <div className="max-w-[800px] w-full mx-auto">
-          {initializing ? (
-            errorMessage !== '' ? (
-              <>
-                <div className="text-center text-lg font-bold">Initialization Error:</div>
-                <div className="text-center text-lg">&quot;{errorMessage}&quot;</div>
-              </>
+        <Navbar />
+        <div className="flex-1 flex items-center justify-center overflow-auto sm:px-10 pb-4 sm:pb-10 py-10">
+          <div className="max-w-[1200px] w-full mx-auto" style={{ maxHeight: 'calc(100vh - var(--navbar-height) - 20px)' }}>
+            {initializing ? (
+              errorMessage !== '' ? (
+                <>
+                  <div className="text-center text-lg font-bold">Initialisierungsfehler:</div>
+                  <div className="text-center text-lg">&quot;{errorMessage}&quot;</div>
+                </>
+              ) : (
+                <div className="text-center text-lg font-bold">Initialisierung...</div>
+              )
             ) : (
-              <div className="text-center text-lg font-bold">Initializing...</div>
-            )
-          ) : (
-            <>
-              <Chat
-                messages={messages}
-                loading={loading}
-                onSend={handleSend}
-                onReset={() => handleReset(chatbotContent)}
-              />
-              <div ref={messagesEndRef} />
-            </>
-          )}
+              <>
+                <Chat
+                  messages={messages}
+                  loading={loading}
+                  onSend={handleSend}
+                  onReset={() => handleReset(chatbotContent)}
+                />
+                <div ref={messagesEndRef} />
+              </>
+            )}
+          </div>
         </div>
-      </div>
-      <Footer />
       </div>
     </>
   );

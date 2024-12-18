@@ -154,7 +154,7 @@ def main():
     try:
         if len(sys.argv) > 1:
             question = sys.argv[1]
-        message = start_rechtchecker(reset_dbs=True, clear_cache=True, question=question)
+        message = start_rechtchecker(reset_dbs=True, clear_cache=False, question=question)
         response.update({"message": message})
     except Exception as e:
         response.update({"message": str(e)})
