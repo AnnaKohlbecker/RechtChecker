@@ -156,7 +156,7 @@ class ManagerAgent:
         # Step 1: Check Redis Cache
         cached_response = self.redis_agent.check_cache(question)
         if cached_response is not None:
-            return f"Cached from Redis: {cached_response}"
+            return f"Redis: {cached_response}"
         
         else:
             # Step 2: Classify the Question
@@ -173,16 +173,16 @@ class ManagerAgent:
             response_agent = ""
             match classification:
                 case "neo4j":
-                    response_agent = "From Neo4J: "
+                    response_agent = "Neo4J: "
                     response = self.neo4j_agent.handle_question(question)
                 case "mongodb":
-                    response_agent = "From MongoDB: "
+                    response_agent = "MongoDB: "
                     response = self.mongodb_agent.handle_question(question)
                 case "minio":
-                    response_agent = "From MinIO: "
+                    response_agent = "MinIO: "
                     response = self.minio_agent.handle_question(question)
                 case "postgres":
-                    response_agent = "From PostgreSQL: "
+                    response_agent = "PostgreSQL: "
                     response = self.postgres_agent.handle_question(question)
                 case "none":
                     response = "Entschuldigung, diese Frage gehört nicht zu meinem Anwendungsbereich."

@@ -1,5 +1,6 @@
+import json
+import sys
 from config.settings import LLM_MODEL
-from initialization import initialize_data, initialize_docker_and_containers
 from agents.manager_agent import ManagerAgent
 
 def test_instruct_model(llm_client, query):
@@ -29,11 +30,10 @@ def test_chat_model(llm_client, query):
     except RuntimeError as e:
         print(e)
         
-def start_rechtchecker(reset_dbs, clear_cache):
-    print("\n*** Start Rechtchecker ***")
+def start_rechtchecker(reset_dbs, clear_cache, question):
     manager_agent = ManagerAgent(reset_dbs=reset_dbs, clear_cache=clear_cache)
     
-    german_questions = [
+    # german_questions = [
         # Neo4j
         # "Welche Artikel werden im Artikel 13 referenziert?",
         # "Gibt es Artikel auf die Artikel 12 referenziert?",
@@ -53,8 +53,8 @@ def start_rechtchecker(reset_dbs, clear_cache):
         # "Kannst du mir eine kurze Zusammenfassung von Artikel 4 geben?",
 
         # # MinIO
-        "Gib mir Artikel 3 als PDF.",
-        "Lade Artikel 7 als PDF herunter.",
+        # "Gib mir Artikel 3 als PDF.",
+        # "Lade Artikel 7 als PDF herunter.",
         # "Zeig mir Artikel 15 als PDF.",
         # "Kannst du Artikel 18 als PDF bereitstellen?",
         # "Ich brauche Artikel 6 in einer PDF-Datei.",
@@ -69,10 +69,10 @@ def start_rechtchecker(reset_dbs, clear_cache):
         # "Ein Kollege verbreitet Unwahrheiten über mich. Kann ich mich rechtlich dagegen wehren?",
 
         # None
-        "Was ist das Wetter morgen in Paris?",
-        "Wie heißt die Mutter von Kevin?",
-        "Wie alt bist du?",
-        "Balabalabalabalabalba?",
+        # "Was ist das Wetter morgen in Paris?",
+        # "Wie heißt die Mutter von Kevin?",
+        # "Wie alt bist du?",
+        # "Balabalabalabalabalba?",
         # "No",
         # "Wie viele Kilometer sind es von Berlin nach München?",
         # "Wann wurde das erste Auto erfunden?",
@@ -85,7 +85,7 @@ def start_rechtchecker(reset_dbs, clear_cache):
         # "Darf mein Arbeitgeber mich ohne Vorwarnung entlassen?",
         # "Ich fühle mich in meiner Nachbarschaft diskriminiert. Was kann ich tun?",
         # "Welche Rechte habe ich, wenn ich in der Öffentlichkeit gefilmt werde?",
-    ]
+    # ]
     
     # english_questions = [
     #     # Neo4j
@@ -139,21 +139,26 @@ def start_rechtchecker(reset_dbs, clear_cache):
     #     "Can you give me a recipe for apple pie?",
     # ]
 
-    questions = german_questions
+    # questions = german_questions
 
     # Process each question
-    for question in questions:
-        print(f"\n\n***Question***: {question}")
-        response = manager_agent.handle_question(question)
-        print(f"\n***Response***: {response}")
+    # for question in questions:
+    #     print(f"\n\n***Question***: {question}")
+    #     response = manager_agent.handle_question(question)
+    #     print(f"\n***Response***: {response}")
+    
+    return manager_agent.handle_question(question)
             
 def main(): 
-    initialize_docker_and_containers()
-    initialize_data()
+    response = {"message": "error"}
     try:
-        start_rechtchecker(reset_dbs=True, clear_cache=True)
-    except AttributeError:
-        print("\n\n\nAn error occurred while starting Rechtchecker. Run 'main.py' again.")
+        if len(sys.argv) > 1:
+            question = sys.argv[1]
+        message = start_rechtchecker(reset_dbs=True, clear_cache=False, question=question)
+        response.update({"message": message})
+    except Exception as e:
+        response.update({"message": json.dumps(str(e).replace('"', '\\"').replace('\n', '\\n'))})
+    print(json.dumps(response))
     
 if __name__ == "__main__":
     main()

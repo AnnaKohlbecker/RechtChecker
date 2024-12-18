@@ -78,14 +78,26 @@ git clone https://github.com/AnnaKohlbecker/RechtChecker.git
 
 2. Install requirements
 
+   1. node verion v20.18.0
+
+   ```
+   node -v
+   ```
+
+   2. npm version 9.6.6
+
+   ```
+   npm install -g npm@9.6.6
+   ```
+
+   2.
+
    ```
    pip install -r requirements.txt
    ```
 
 ## Run
 
-Run `main.py`
-
-## Problems with Docker
-
-Quit Docker Desktop
+```
+npm run dev
+```

@@ -23,8 +23,7 @@ def initialize_mongodb():
         db = client[MONGO_DB]
         print("MongoDB initialized.")
         return db
-    except Exception as e:
-        print(f"Default connection failed: {e}")
+    except Exception:
         try:
             # Second attempt: URI-based connection with credentials
             uri = f"mongodb://{MONGO_DB_USER}:{MONGO_DB_PASSWORD}@{MONGO_HOST}/?authSource={MONGO_DB_AUTH_SOURCE}&authMechanism=SCRAM-SHA-256"
@@ -32,9 +31,9 @@ def initialize_mongodb():
             db = client[MONGO_DB_AUTH_SOURCE]
             print("MongoDB initialized.")
             return db
-        except Exception as e:
-            print(f"URI-based connection failed: {e}")
-            return None
+        except Exception:
+            raise Exception(f"URI-based connection for MongoDB failed.")
+        
 
 def reinitialize_with_uri():
     """
