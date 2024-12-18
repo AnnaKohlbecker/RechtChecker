@@ -154,7 +154,8 @@ class ManagerAgent:
             str: The answer from the appropriate agent.
         """
         # Step 1: Check Redis Cache
-        cached_response = self.redis_agent.check_cache(question)
+        uniform_question = question.lower().replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
+        cached_response = self.redis_agent.check_cache(uniform_question)
         if cached_response is not None:
             return f"Redis: {cached_response}"
         
@@ -189,7 +190,8 @@ class ManagerAgent:
                 case _:
                     response = "Entschuldigung, ich konnte Ihre Frage nicht verstehen."
 
-            self.redis_agent.store_cache(question, response)
+            uniform_response = response.lower().replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
+            self.redis_agent.store_cache(uniform_question, uniform_response)
             
             response = response_agent + response
             
