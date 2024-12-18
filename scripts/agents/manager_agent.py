@@ -189,7 +189,8 @@ class ManagerAgent:
                 case _:
                     response = "Entschuldigung, ich konnte Ihre Frage nicht verstehen."
 
-            self.redis_agent.store_cache(question, response)
+            if not classification == "minio":
+                self.redis_agent.store_cache(question, response)
             
             response = response_agent + response
             
