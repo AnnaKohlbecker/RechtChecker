@@ -106,4 +106,4 @@ Use the docker_compose.yml provided within this Repo, since it includes all imag
 npm run dev
 ```
 
-Open [th](http://localhost:3001/) in your browser to access the Chatbot UI.
+Open [localhost:3001](http://localhost:3001/) in your browser to access the Chatbot UI.
